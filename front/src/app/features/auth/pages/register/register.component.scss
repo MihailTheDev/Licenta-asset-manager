@@ -1,0 +1,18 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+
+  margin: auto;
+
+  .form-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .button-container {
+    display: flex;
+    display: row;
+    justify-content: space-evenly;
+  }
+}
