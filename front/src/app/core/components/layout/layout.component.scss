@@ -1,0 +1,37 @@
+$drawer-minimal-width: 56px;
+$drawer-maximum-width: 100px;
+
+:host {
+  mat-toolbar {
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+
+    .profile-container {
+      margin-top: auto;
+    }
+  }
+
+  mat-drawer-container {
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .mat-drawer-opened {
+    width: $drawer-minimal-width;
+    mat-toolbar {
+      width: $drawer-minimal-width;
+    }
+  }
+  .expand {
+    width: $drawer-maximum-width;
+    mat-toolbar {
+      width: $drawer-maximum-width;
+    }
+  }
+
+  .profile-container {
+    margin-top: auto;
+  }
+}

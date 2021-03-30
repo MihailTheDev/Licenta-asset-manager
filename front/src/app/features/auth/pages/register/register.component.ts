@@ -3,6 +3,7 @@ import { BaseComponent } from '@core/components';
 import { RedirectService } from '@core/services/redirect.service';
 import { distinctUntilChanged, map } from 'rxjs/operators';
 import { RegisterFormGroup } from '../../forms';
+import { RegisterModel } from '../../models';
 
 @Component({
   selector: 'app-register',
@@ -39,5 +40,9 @@ export class RegisterComponent extends BaseComponent implements OnInit {
   onReset() {
     this.form.reset();
     this.form.updateValueAndValidity();
+  }
+
+  public get formValue(): RegisterModel {
+    return this.form.value;
   }
 }

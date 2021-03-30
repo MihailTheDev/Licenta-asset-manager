@@ -1,0 +1,30 @@
+<mat-drawer-container class="example-container">
+  <mat-drawer #drawer mode="side" opened [class.expand]="expandSideMenu">
+    <mat-toolbar color="primary">
+      <button mat-icon-button aria-label="Menu icon" (click)="toogle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <ng-container *ngFor="let item of menuItems">
+        <button
+          mat-icon-button
+          [attr.aria-label]="item.iconLabel + 'icon'"
+          (click)="onMenuItemClick(item)"
+        >
+          <mat-icon>{{ item.iconLabel }}</mat-icon>
+          <span *ngIf="expandSideMenu">{{ item.buttonLabel }}</span>
+        </button>
+      </ng-container>
+
+      <div class="profile-container">
+        <button mat-icon-button aria-label="Menu icon" (click)="toogle()">
+          <mat-icon>person</mat-icon>
+        </button>
+      </div>
+    </mat-toolbar>
+  </mat-drawer>
+  <mat-drawer-content>
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>
+
+<!-- TODO: animation on menu item click to change -->

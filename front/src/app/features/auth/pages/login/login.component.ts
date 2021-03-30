@@ -4,6 +4,7 @@ import { BaseComponent } from '@core/components';
 import { RedirectService } from '@core/services/redirect.service';
 import { distinctUntilChanged, map } from 'rxjs/operators';
 import { LoginFormGroup } from '../../forms';
+import { LoginModel } from '../../models';
 
 @Component({
   selector: 'app-login',
@@ -34,11 +35,15 @@ export class LoginComponent extends BaseComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.form.value);
+    console.log(this.formValue);
   }
 
   onReset() {
     this.form.reset();
     this.form.updateValueAndValidity();
+  }
+
+  public get formValue(): LoginModel {
+    return this.form.value;
   }
 }

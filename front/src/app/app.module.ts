@@ -8,6 +8,8 @@ import { CoreModule } from './core/core.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { StoreModule } from '@ngrx/store';
+import { reducers } from './store';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,6 +21,8 @@ import { MatInputModule } from '@angular/material/input';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
+    StoreModule.forRoot({}, {}),
+    StoreModule.forRoot(reducers, {}),
   ],
   providers: [],
   bootstrap: [AppComponent],
