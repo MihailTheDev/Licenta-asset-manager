@@ -1,3 +1,51 @@
-<p>
-  create works!
-</p>
+<h1>Create asset</h1>
+
+<mat-label>Name: </mat-label>
+<mat-form-field appearance="standard">
+  <input matInput type="text" aria-label="asset name" name="asset-name" />
+</mat-form-field>
+
+<mat-form-field appearance="fill">
+  <mat-label>Size</mat-label>
+  <mat-select>
+    <mat-option *ngFor="let food of ['S', 'M', 'L']">
+      {{ food }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<mat-label>Year of product: </mat-label>
+<mat-form-field appearance="standard">
+  <input matInput type="number" aria-label="" name="" />
+</mat-form-field>
+
+<mat-form-field appearance="fill" class="example-form-field">
+  <mat-label>Choose a date</mat-label>
+  <input matInput [matDatepicker]="datepicker" disabled />
+  <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+  <mat-datepicker #datepicker disabled="false">
+    <mat-datepicker-actions>
+      <button mat-button matDatepickerCancel>Cancel</button>
+      <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+    </mat-datepicker-actions>
+  </mat-datepicker>
+</mat-form-field>
+
+<mat-slide-toggle class="example-margin" color="accent"> Serial number</mat-slide-toggle>
+
+<br />
+<mat-label>Serial number: </mat-label>
+<mat-form-field appearance="standard">
+  <input matInput type="number" aria-label="" name="" />
+</mat-form-field>
+
+<br />
+<mat-form-field class="example-full-width">
+  <mat-label>Description</mat-label>
+  <textarea matInput placeholder="Description for anything you want"></textarea>
+</mat-form-field>
+
+<mat-form-field class="example-full-width">
+  <mat-label>Observation</mat-label>
+  <textarea matInput placeholder="Observations for anything"></textarea>
+</mat-form-field>
