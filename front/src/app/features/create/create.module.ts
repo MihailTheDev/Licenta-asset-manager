@@ -8,6 +8,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { DialogParentAssetComponent } from './dialogs';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ElectronicAssetsFormComponent, UsableAssetsFormComponent } from './components';
 
 const MATERIAL_COMPONENTS: any[] = [
   MatInputModule,
@@ -16,9 +19,15 @@ const MATERIAL_COMPONENTS: any[] = [
   MatDatepickerModule,
   MatNativeDateModule,
   MatSlideToggleModule,
+  MatDialogModule,
 ];
 @NgModule({
   imports: [CommonModule, CreateRoutingModule, MATERIAL_COMPONENTS],
-  declarations: [CreateComponent],
+  declarations: [
+    CreateComponent,
+    DialogParentAssetComponent,
+    ElectronicAssetsFormComponent,
+    UsableAssetsFormComponent,
+  ],
 })
 export class CreateModule {}

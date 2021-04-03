@@ -1,4 +1,21 @@
 :host {
   display: block;
-  margin: 32px;
+  margin: 56px;
+
+  .form-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
+  .form-row {
+    display: flex;
+    width: 100%;
+    margin: 0 16px;
+
+    .name-container {
+      mat-form-field {
+        width: 75%;
+      }
+    }
+  }
 }
