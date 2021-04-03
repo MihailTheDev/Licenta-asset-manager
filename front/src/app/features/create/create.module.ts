@@ -11,6 +11,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { DialogParentAssetComponent } from './dialogs';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ElectronicAssetsFormComponent, UsableAssetsFormComponent } from './components';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 
 const MATERIAL_COMPONENTS: any[] = [
   MatInputModule,
@@ -20,9 +22,10 @@ const MATERIAL_COMPONENTS: any[] = [
   MatNativeDateModule,
   MatSlideToggleModule,
   MatDialogModule,
+  MatButtonModule
 ];
 @NgModule({
-  imports: [CommonModule, CreateRoutingModule, MATERIAL_COMPONENTS],
+  imports: [CommonModule, CreateRoutingModule,ReactiveFormsModule, MATERIAL_COMPONENTS],
   declarations: [
     CreateComponent,
     DialogParentAssetComponent,

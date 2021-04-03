@@ -19,7 +19,7 @@ export class CreateComponent extends BaseComponent implements OnInit {
   ngOnInit() {}
 
   openPopUp(): void {
-    this.dialogService.open(this.dialog);
+    // this.dialogService.open(this.dialog);
   }
 
   get OPTIONS() {
@@ -32,5 +32,24 @@ export class CreateComponent extends BaseComponent implements OnInit {
 
   get groupValue(): string {
     return this.form.value.group;
+  }
+
+  get serialNumberControl(): FormControl {
+    return this.form.controls.serialNumber as FormControl;
+  }
+
+  public onSubmit(): void {
+    console.log(this.form.value);
+  }
+
+  public onReset(): void {
+    this.form.reset();
+  }
+
+  public onSerialNumberSliderChange({ checked }: any): void {
+    if (checked) {
+      this.serialNumberControl.disable();
+    }
+    this.serialNumberControl.enable();
   }
 }

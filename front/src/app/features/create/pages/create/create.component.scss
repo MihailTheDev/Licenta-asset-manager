@@ -7,15 +7,53 @@
     flex-wrap: wrap;
     flex-direction: column;
   }
+
   .form-row {
     display: flex;
-    width: 100%;
     margin: 0 16px;
+  }
 
-    .name-container {
-      mat-form-field {
-        width: 75%;
+  .name-container {
+    mat-form-field {
+      width: 75%;
+    }
+  }
+
+  .textarea-container {
+    height: 112px;
+    margin-bottom: 16px;
+    mat-form-field {
+      width: 75%;
+      textarea {
+        height: 96px;
       }
+    }
+  }
+
+  .button-container {
+    height: 32px;
+
+    margin: 24px;
+  }
+
+  .flex-space-around {
+    width: 75%;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .serial-number-container {
+    width: 75%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    mat-form-field {
+      width: 100%;
+    }
+
+    & > *:not(:last-child) {
+      margin-right: 16px;
     }
   }
 }
