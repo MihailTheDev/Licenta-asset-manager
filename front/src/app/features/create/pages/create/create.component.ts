@@ -19,7 +19,7 @@ export class CreateComponent extends BaseComponent implements OnInit {
   ngOnInit() {}
 
   openPopUp(): void {
-    // this.dialogService.open(this.dialog);
+    this.dialogService.open(this.dialog);
   }
 
   get OPTIONS() {
@@ -50,6 +50,7 @@ export class CreateComponent extends BaseComponent implements OnInit {
     if (checked) {
       this.serialNumberControl.disable();
     }
+
     this.serialNumberControl.enable();
   }
 }

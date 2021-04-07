@@ -13,6 +13,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ElectronicAssetsFormComponent, UsableAssetsFormComponent } from './components';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { SharedModule } from 'app/shared/shared.module';
 
 const MATERIAL_COMPONENTS: any[] = [
   MatInputModule,
@@ -22,10 +23,17 @@ const MATERIAL_COMPONENTS: any[] = [
   MatNativeDateModule,
   MatSlideToggleModule,
   MatDialogModule,
-  MatButtonModule
+  MatButtonModule,
+
 ];
 @NgModule({
-  imports: [CommonModule, CreateRoutingModule,ReactiveFormsModule, MATERIAL_COMPONENTS],
+  imports: [
+    CommonModule,
+    SharedModule,
+    CreateRoutingModule,
+    ReactiveFormsModule,
+    MATERIAL_COMPONENTS,
+  ],
   declarations: [
     CreateComponent,
     DialogParentAssetComponent,

@@ -9,8 +9,8 @@ export class CreateDialogService {
 
   public open(matDialog: any): void {
     let dialogRef = matDialog.open(DialogParentAssetComponent, {
-      height: '400px',
-      width: '600px',
+      height: '600px',
+      width: '800px',
     });
 
     return dialogRef.afterClosed();
