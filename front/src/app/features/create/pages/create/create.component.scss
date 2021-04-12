@@ -36,6 +36,19 @@
     margin: 24px;
   }
 
+  .table-container {
+    min-height: 200px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    app-table {
+      height: 250px;
+      width: 100%;
+      overflow: auto;
+      position: relative;
+    }
+  }
+
   .flex-space-around {
     width: 75%;
     display: flex;

@@ -43,8 +43,9 @@
 
   <div class="form-row serial-number-container">
     <mat-slide-toggle (change)="onSerialNumberSliderChange($event)" color="primary">
-      Serial number</mat-slide-toggle>
-      <!-- TODO: bug here on changing the slide -->
+      Serial number</mat-slide-toggle
+    >
+    <!-- TODO: bug here on changing the slide -->
 
     <mat-form-field appearance="standard">
       <mat-label>Serial number: </mat-label>
@@ -81,11 +82,20 @@
   <!-- TODO: remove resizable button on textarea -->
 
   <div class="form-row button-container flex-space-around">
-    <button mat-button color="primary" (click)="openPopUp()">Select parent asset</button>
+    <button mat-button color="primary" (click)="openParentPopUp()">Select parent asset</button>
 
-    <button mat-button color="primary" (click)="openPopUp()">Select child asset</button>
+    <button mat-button color="primary" (click)="openChildPopUp()">Select child asset</button>
   </div>
 
+  <div class="form-row table-container" *ngIf="parentAssets.length > 0">
+    <mat-label> Parent assets </mat-label>
+    <app-table [dataSource]="parentAssets" [displayedColumns]="displayedColumns"> </app-table>
+  </div>
+
+  <div class="form-row table-container" *ngIf="childAssets.length > 0">
+    <mat-label> Child assets </mat-label>
+    <app-table [dataSource]="childAssets" [displayedColumns]="displayedColumns"> </app-table>
+  </div>
   <div class="form-row">
     <mat-form-field appearance="fill">
       <mat-label>Group</mat-label>

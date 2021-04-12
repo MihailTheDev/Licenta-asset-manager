@@ -12,14 +12,30 @@ import { CreateDialogService } from '../../services/create-dialog.service';
 })
 export class CreateComponent extends BaseComponent implements OnInit {
   public form: FormGroup = new CreateFormGroup();
+  public parentAssets: any[] = [];
+  public childAssets: any[] = [];
+  public displayedColumns: string[] = ['name', 'group', 'serialNumber'];
+
   constructor(private dialogService: CreateDialogService, private dialog: MatDialog) {
     super();
   }
 
   ngOnInit() {}
 
-  openPopUp(): void {
-    this.dialogService.open(this.dialog);
+  public openParentPopUp(): void {
+    this.subscription$ = this.dialogService
+      .open(this.dialog, this.parentAssets)
+      .subscribe((selectedItems) => {
+        this.parentAssets = selectedItems;
+      });
+  }
+
+  public openChildPopUp(): void {
+    this.subscription$ = this.dialogService
+      .open(this.dialog, this.childAssets)
+      .subscribe((selectedItems) => {
+        this.childAssets = selectedItems;
+      });
   }
 
   get OPTIONS() {

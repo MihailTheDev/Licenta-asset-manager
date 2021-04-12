@@ -19,7 +19,7 @@ export class RegisterComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.subscription = this.form.statusChanges
+    this.subscription$ = this.form.statusChanges
       .pipe(
         distinctUntilChanged(),
         map((status) => (status === 'VALID' ? true : false)),

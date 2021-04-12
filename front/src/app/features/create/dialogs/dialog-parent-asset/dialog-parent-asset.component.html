@@ -7,7 +7,7 @@
     <mat-label>Serial number: </mat-label>
     <input formControlName="serialNumber" matInput aria-label="Serial number input" name="input" />
   </mat-form-field>
-  <mat-form-field appearance="fill">
+  <mat-form-field appearance="standard">
     <mat-label>Group</mat-label>
     <mat-select formControlName="group">
       <mat-option *ngFor="let types of OPTIONS.GROUP_TYPES" [value]="types.id">
@@ -15,8 +15,19 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
+
+  <mat-slide-toggle [formControl]="showSelectedControl" color="primary">
+    Show only selected
+  </mat-slide-toggle>
 </span>
-<app-table [withSelect]="true" (selectedItem)="onSelectItem($event)"></app-table>
+<app-table
+  [withSelect]="true"
+  [withPaginator]="true"
+  [dataSource]="!showSelected ? dataSource : selectedItems"
+  [displayedColumns]="displayedColumns"
+  [selectedItems]="this.data.selectedItems"
+  (selectedItem)="onSelectItem($event)"
+></app-table>
 <div class="actions-container">
   <button mat-button (click)="submit()">Submit ({{ selectedItems.length }})</button>
   <button mat-button (click)="cancel()">Cancel</button>

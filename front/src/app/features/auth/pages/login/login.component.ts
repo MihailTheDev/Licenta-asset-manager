@@ -20,7 +20,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.subscription = this.form.statusChanges
+    this.subscription$ = this.form.statusChanges
       .pipe(
         distinctUntilChanged(),
         map((status) => (status === 'VALID' ? true : false)),
