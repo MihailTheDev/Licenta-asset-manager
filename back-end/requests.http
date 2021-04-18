@@ -1,0 +1,8 @@
+POST http://localhost:8000/register
+Content-Type: application/json
+
+{
+  "username": "moshu",
+  "password": "123qwe123",
+  "email": "e@domain.ro"
+}
