@@ -32,17 +32,16 @@
 
   .button-container {
     height: 32px;
-
     margin: 24px;
   }
 
   .table-container {
-    min-height: 200px;
+    min-height: 150px;
     position: relative;
     display: flex;
     flex-direction: column;
     app-table {
-      height: 250px;
+      max-height: 250px;
       width: 100%;
       overflow: auto;
       position: relative;
@@ -67,6 +66,16 @@
 
     & > *:not(:last-child) {
       margin-right: 16px;
+    }
+  }
+
+  .red-text {
+    color: red;
+  }
+
+  ::ng-deep {
+    textarea {
+      resize: none !important;
     }
   }
 }

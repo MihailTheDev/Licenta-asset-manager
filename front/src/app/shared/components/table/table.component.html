@@ -1,4 +1,4 @@
-<div class="table-container">
+<div class="table-container" *ngIf="!!selection">
   <table mat-table [dataSource]="dataSource">
     <!-- Checkbox Column -->
     <ng-container matColumnDef="select" *ngIf="withSelect">
@@ -42,7 +42,7 @@
     <tr
       mat-row
       *matRowDef="let row; columns: displayedColumns"
-      (click)="selection.toggle(row)"
+      (click)="selection?.toggle(row)"
     ></tr>
   </table>
 </div>

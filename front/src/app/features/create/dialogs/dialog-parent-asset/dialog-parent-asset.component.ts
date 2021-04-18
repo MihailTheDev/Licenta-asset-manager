@@ -6,31 +6,37 @@ import { ModalAssetItem } from '../../models';
 
 const ELEMENT_DATA: ModalAssetItem[] = [
   {
+    id: '1',
     name: 'Unitate acer A4201',
     group: 'Birotica',
     serialNumber: '123456789ABCDEF',
   },
   {
+    id: '2',
     name: 'Unitate acer A4201',
     group: 'Birotica',
     serialNumber: '123456789ABCDEF',
   },
   {
+    id: '3',
     name: 'Unitate acer A4201',
     group: 'Birotica',
     serialNumber: '123456789ABCDEF',
   },
   {
+    id: '4',
     name: 'Unitate acer A4201',
     group: 'Birotica',
     serialNumber: '123456789ABCDEF',
   },
   {
+    id: '5',
     name: 'Unitate acer A4201',
     group: 'Birotica',
     serialNumber: '123456789ABCDEF',
   },
   {
+    id: '6',
     name: 'Unitate acer A4201',
     group: 'Birotica',
     serialNumber: '123456789ABCDEF',
@@ -59,7 +65,9 @@ export class DialogParentAssetComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: { selectedItems: any },
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.data);
+  }
 
   onSelectItem(items: any[]) {
     this.selectedItems = items;

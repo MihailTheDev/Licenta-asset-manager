@@ -30,9 +30,14 @@ export class TableComponent implements OnChanges {
   selectedItem: EventEmitter<any[]> = new EventEmitter();
 
   public tableData: MatTableDataSource<any>;
-  selection = new SelectionModel<any>(true, this.selectedItems);
+  public selection: SelectionModel<any>;
 
   ngOnInit(): void {
+    if (this.selectedItems.length > 0) {
+      this.selection = new SelectionModel(true, this.selectedItems);
+    } else {
+      this.selection = new SelectionModel(true);
+    }
     if (this.withSelect) {
       this.displayedColumns.unshift('select');
     }

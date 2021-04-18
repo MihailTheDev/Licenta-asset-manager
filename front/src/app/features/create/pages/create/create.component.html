@@ -42,10 +42,9 @@
   </div>
 
   <div class="form-row serial-number-container">
-    <mat-slide-toggle (change)="onSerialNumberSliderChange($event)" color="primary">
-      Serial number</mat-slide-toggle
-    >
-    <!-- TODO: bug here on changing the slide -->
+    <mat-slide-toggle [formControl]="sliderSerialNumberControl" color="primary">
+      Serial number
+    </mat-slide-toggle>
 
     <mat-form-field appearance="standard">
       <mat-label>Serial number: </mat-label>
@@ -88,14 +87,19 @@
   </div>
 
   <div class="form-row table-container" *ngIf="parentAssets.length > 0">
-    <mat-label> Parent assets </mat-label>
+    <mat-label [class.red-text]="linkedAssetsError"> Parent assets </mat-label>
     <app-table [dataSource]="parentAssets" [displayedColumns]="displayedColumns"> </app-table>
   </div>
 
   <div class="form-row table-container" *ngIf="childAssets.length > 0">
-    <mat-label> Child assets </mat-label>
+    <mat-label [class.red-text]="linkedAssetsError"> Child assets </mat-label>
     <app-table [dataSource]="childAssets" [displayedColumns]="displayedColumns"> </app-table>
   </div>
+
+  <div class="form-row" *ngIf="linkedAssetsError">
+    <mat-label class="red-text"> You can't have the same asset as both parent and child </mat-label>
+  </div>
+
   <div class="form-row">
     <mat-form-field appearance="fill">
       <mat-label>Group</mat-label>
@@ -112,7 +116,12 @@
   ></app-electronic-assets-form>
   <app-usable-assets-form *ngIf="groupValue === GroupIdTypes.usable"></app-usable-assets-form>
 </div>
-<button mat-raised-button (click)="onSubmit()" color="primary" [disabled]="form.invalid">
+<button
+  mat-raised-button
+  (click)="onSubmit()"
+  color="primary"
+  [disabled]="form.invalid && linkedAssetsError"
+>
   Submit
 </button>
 <button mat-raised-button (click)="onReset()" color="warn">Reset</button>
