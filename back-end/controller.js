@@ -1,5 +1,4 @@
-var db = require('./db');
-
+var database = require('./database');
 exports.login = (req, res) => {
   res.send('login here');
 };
@@ -7,7 +6,10 @@ exports.login = (req, res) => {
 exports.register = (req, res) => {
   console.log(req.body);
   const user = req.body;
-  res.send('register here');
+  database.create(user).then((result) => {
+    res.send(result);
+  });
+  // res.send('lolo');
 };
 
 exports.createAsset = (req, res) => {

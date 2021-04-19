@@ -120,7 +120,7 @@
   mat-raised-button
   (click)="onSubmit()"
   color="primary"
-  [disabled]="form.invalid && linkedAssetsError"
+  [disabled]="form.invalid && !linkedAssetsError"
 >
   Submit
 </button>

@@ -6,3 +6,18 @@ Content-Type: application/json
   "password": "123qwe123",
   "email": "e@domain.ro"
 }
+#######
+POST http://localhost:8000/asset
+Content-Type: application/json
+
+{
+  "name": "Unitate",
+  "size": "",
+  "yearOfProduct": "",
+  "serialNumber": "",
+  "description": "",
+  "observation": "",
+  "parents": [],
+  "childs": [],
+  "group": ""
+}
