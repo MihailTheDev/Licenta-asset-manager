@@ -6,6 +6,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/login', controller.login);
+
 router.post('/register', controller.register);
 
 router.post('/asset', controller.createAsset);

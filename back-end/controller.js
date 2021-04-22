@@ -1,17 +1,37 @@
-var database = require('./database');
+var dbUser = require('./database-user');
+var dbAsset = require('./database-asset');
+
 exports.login = (req, res) => {
-  res.send('login here');
+  const user = ({ username, password } = req.query);
+  dbUser.find(user).then((response) => {
+    if (!response) {
+      res.status(404).send('not found');
+    } else {
+      res.send('successfully');
+    }
+  });
 };
 
 exports.register = (req, res) => {
-  console.log(req.body);
   const user = req.body;
-  database.create(user).then((result) => {
-    res.send(result);
-  });
-  // res.send('lolo');
+  dbUser
+    .create(user)
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      res.status(400).send(err);
+    });
 };
 
 exports.createAsset = (req, res) => {
-  res.send('i create asset');
+  const asset = req.body;
+  dbAsset
+    .create(asset)
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      res.status(400).send(err);
+    });
 };

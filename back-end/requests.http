@@ -2,10 +2,13 @@ POST http://localhost:8000/register
 Content-Type: application/json
 
 {
-  "username": "moshu",
+  "username": "moshu12345",
   "password": "123qwe123",
-  "email": "e@domain.ro"
+  "email": "e12345@domain.ro"
 }
+#######
+GET http://localhost:8000/login?username=moshu123456&password=123qwe123
+
 #######
 POST http://localhost:8000/asset
 Content-Type: application/json
@@ -18,6 +21,6 @@ Content-Type: application/json
   "description": "",
   "observation": "",
   "parents": [],
-  "childs": [],
+  "children1": [],
   "group": ""
 }
