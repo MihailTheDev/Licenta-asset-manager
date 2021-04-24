@@ -40,13 +40,21 @@ exports.getAsset = (req, res) => {
   dbAsset
     .findOne(req.params.id)
     .then((asset) => {
-      res.send(asset);
+      if (asset) {
+        res.send(asset);
+      }
+
+      res.status(404).send();
     })
     .catch((err) => {
-      res.status.send(err);
+      console.log('err here');
+      res.status(404).send(err);
     });
 };
 
 exports.getAssets = (req, res) => {
-  res.send('get multiple assets');
+  const paginator = ({ pageSize, pageNumber } = req.query);
+  dbAsset.findWithPaginator(paginator).then((assets) => {
+    res.send(assets);
+  });
 };

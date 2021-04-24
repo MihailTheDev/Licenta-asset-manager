@@ -10,10 +10,10 @@ Content-Type: application/json
 GET http://localhost:8000/login?username=moshu123456&password=123qwe123
 
 #######
-GET http://localhost:8000/asset
+GET http://localhost:8000/asset?pageSize=5&pageNumber=1
 
 #######
-GET http://localhost:8000/asset/608409a402e915d79de61a62
+GET http://localhost:8000/asset/123456789123
 
 #######
 POST http://localhost:8000/asset

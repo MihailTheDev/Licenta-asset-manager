@@ -1,4 +1,6 @@
 var mongoose = require('mongoose');
+var ObjectId = require('mongodb').ObjectID;
+
 mongoose
   .connect(
     'mongodb+srv://eduardtibuleac:Tu89SHbpXYHNdz@cluster0.8wa4q.mongodb.net/users?retryWrites=true&w=majority',
@@ -50,7 +52,23 @@ exports.create = (asset) => {
 };
 
 exports.findOne = (id) => {
-  return AssetModel.findById(id).exec();
+  id = id + '';
+  try {
+    const assetId = ObjectId(id);
+    return AssetModel.findById(assetId).exec();
+    // TODO: add links id's
+  } catch (err) {
+    return new Promise((resolve, reject) => {
+      reject(err);
+    });
+  }
+};
+
+exports.findWithPaginator = ({ pageSize, pageNumber }) => {
+  return AssetModel.find()
+    .limit(pageSize)
+    .skip(pageSize * pageNumber)
+    .exec();
 };
 
 // TODO: update for one asset to have one parent and multiple children
