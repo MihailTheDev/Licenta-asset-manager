@@ -9,6 +9,10 @@ router.get('/login', controller.login);
 
 router.post('/register', controller.register);
 
+router.get('/asset', controller.getAssets);
+
+router.get('/asset/:id', controller.getAsset);
+
 router.post('/asset', controller.createAsset);
 
 module.exports = router;

@@ -21,12 +21,17 @@ var assetSchema = new mongoose.Schema({
   serialNumber: {},
   description: {},
   observation: {},
-  parents: {},
-  children: {},
   group: {},
 });
 
+var linkSchema = new mongoose.Schema({
+  assetId: {},
+  linkedAssetId: {},
+  type: {},
+});
+
 let AssetModel = mongoose.model('asset', assetSchema);
+let LinkModel = mongoose.model('link', linkSchema);
 
 exports.create = (asset) => {
   const newAsset = new AssetModel(asset);
@@ -34,6 +39,8 @@ exports.create = (asset) => {
     newAsset
       .save()
       .then((resp) => {
+        const assetId = resp.id;
+        saveLinks(asset, assetId);
         resolve(resp);
       })
       .catch((err) => {
@@ -41,3 +48,18 @@ exports.create = (asset) => {
       });
   });
 };
+
+exports.findOne = (id) => {
+  return AssetModel.findById(id).exec();
+};
+
+// TODO: update for one asset to have one parent and multiple children
+function saveLinks({ parent, children }, id) {
+  const links = [];
+  links.push(new LinkModel({ assetId: id, linkedAssetId: parent, type: 'parent' }));
+  children.forEach((child) => {
+    links.push(new LinkModel({ assetId: id, linkedAssetId: child, type: 'child' }));
+  });
+
+  return LinkModel.create(links);
+}

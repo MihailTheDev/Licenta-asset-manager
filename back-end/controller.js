@@ -35,3 +35,18 @@ exports.createAsset = (req, res) => {
       res.status(400).send(err);
     });
 };
+
+exports.getAsset = (req, res) => {
+  dbAsset
+    .findOne(req.params.id)
+    .then((asset) => {
+      res.send(asset);
+    })
+    .catch((err) => {
+      res.status.send(err);
+    });
+};
+
+exports.getAssets = (req, res) => {
+  res.send('get multiple assets');
+};

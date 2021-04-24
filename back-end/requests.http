@@ -10,17 +10,23 @@ Content-Type: application/json
 GET http://localhost:8000/login?username=moshu123456&password=123qwe123
 
 #######
+GET http://localhost:8000/asset
+
+#######
+GET http://localhost:8000/asset/608409a402e915d79de61a62
+
+#######
 POST http://localhost:8000/asset
 Content-Type: application/json
 
 {
+  "children": [1,2,3],
+  "description": "",
+  "group": "",
   "name": "Unitate",
+  "observation": "",
+  "parent": 13,
+  "serialNumber": "",
   "size": "",
   "yearOfProduct": "",
-  "serialNumber": "",
-  "description": "",
-  "observation": "",
-  "parents": [],
-  "children1": [],
-  "group": ""
 }
