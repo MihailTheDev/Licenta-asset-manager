@@ -1,6 +1,11 @@
 var mongoose = require('mongoose');
 var ObjectId = require('mongodb').ObjectID;
 
+const LinkType = {
+  CHILD: 'child',
+  PARENT: 'parent',
+};
+
 mongoose
   .connect(
     'mongodb+srv://eduardtibuleac:Tu89SHbpXYHNdz@cluster0.8wa4q.mongodb.net/users?retryWrites=true&w=majority',
@@ -33,7 +38,7 @@ var linkSchema = new mongoose.Schema({
 });
 
 let AssetModel = mongoose.model('asset', assetSchema);
-let LinkModel = mongoose.model('link', linkSchema);
+let LinkModel = mongoose.model('links', linkSchema);
 
 exports.create = (asset) => {
   const newAsset = new AssetModel(asset);
@@ -52,31 +57,45 @@ exports.create = (asset) => {
 };
 
 exports.findOne = (id) => {
-  id = id + '';
   try {
-    const assetId = ObjectId(id);
-    return AssetModel.findById(assetId).exec();
-    // TODO: add links id's
-  } catch (err) {
+    const assetId = ObjectId(id.toString());
     return new Promise((resolve, reject) => {
+      AssetModel.findById(assetId)
+        .exec()
+        .then((asset) => {
+          if (!asset) {
+            reject('err');
+            return;
+          }
+
+          resolve(asset._doc);
+        });
+    });
+  } catch (err) {
+    return new Promise((_, reject) => {
       reject(err);
     });
   }
 };
 
+exports.getLinksByAssetId = (id) => {
+  return LinkModel.find({ assetId: id.toString() }).exec();
+};
+
 exports.findWithPaginator = ({ pageSize, pageNumber }) => {
+  pageSize = parseInt(pageSize);
+  pageNumber = parseInt(pageNumber);
   return AssetModel.find()
-    .limit(pageSize)
-    .skip(pageSize * pageNumber)
+    .skip(pageSize * pageNumber - pageSize)
     .exec();
 };
 
 // TODO: update for one asset to have one parent and multiple children
 function saveLinks({ parent, children }, id) {
   const links = [];
-  links.push(new LinkModel({ assetId: id, linkedAssetId: parent, type: 'parent' }));
+  links.push(new LinkModel({ assetId: id, linkedAssetId: parent, type: LinkType.PARENT }));
   children.forEach((child) => {
-    links.push(new LinkModel({ assetId: id, linkedAssetId: child, type: 'child' }));
+    links.push(new LinkModel({ assetId: id, linkedAssetId: child, type: LinkType.CHILD }));
   });
 
   return LinkModel.create(links);

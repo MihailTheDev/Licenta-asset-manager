@@ -15,4 +15,6 @@ router.get('/asset/:id', controller.getAsset);
 
 router.post('/asset', controller.createAsset);
 
+router.get('/link/:assetId', controller.getLinks)
+
 module.exports = router;
