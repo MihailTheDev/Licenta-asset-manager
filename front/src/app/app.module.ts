@@ -10,6 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { StoreModule } from '@ngrx/store';
 import { reducers } from './store';
+import { AuthGuard } from '@core/guards/auth.guard';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,7 +25,7 @@ import { reducers } from './store';
     StoreModule.forRoot({}, {}),
     StoreModule.forRoot(reducers, {}),
   ],
-  providers: [],
   bootstrap: [AppComponent],
+  providers: [AuthGuard],
 })
 export class AppModule {}

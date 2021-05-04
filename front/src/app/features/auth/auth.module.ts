@@ -8,15 +8,26 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 
 import { MatCardModule } from '@angular/material/card';
+import { HttpClientModule } from '@angular/common/http';
+import { AuthService } from './services/auth.service';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 const MATERIAL_MODULES: any[] = [
   MatFormFieldModule,
   MatInputModule,
   MatButtonModule,
   MatCardModule,
+  MatSnackBarModule,
 ];
 @NgModule({
   declarations: [LoginComponent, RegisterComponent],
-  imports: [CommonModule, AuthRoutingModule, ReactiveFormsModule, MATERIAL_MODULES],
+  imports: [
+    AuthRoutingModule,
+    CommonModule,
+    HttpClientModule,
+    MATERIAL_MODULES,
+    ReactiveFormsModule,
+  ],
+  providers: [AuthService],
 })
 export class AuthModule {}

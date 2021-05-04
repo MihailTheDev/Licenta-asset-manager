@@ -14,7 +14,12 @@ export class RedirectService {
   public toRegister() {
     this.router.navigate(['/auth/register']);
   }
+
   public toHome() {
     this.router.navigate(['/home']);
+  }
+
+  public toCreate() {
+    this.router.navigate(['/create']);
   }
 }

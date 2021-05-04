@@ -4,6 +4,11 @@
   width: 500px;
 
   margin: auto;
+  margin-top: 64px;
+
+  [red-text] {
+    color: #f44336;
+  }
 
   .form-container {
     display: flex;
