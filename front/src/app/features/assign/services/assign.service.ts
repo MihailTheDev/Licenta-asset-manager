@@ -10,8 +10,18 @@ export class AssignService {
 
   constructor(private http: HttpClient) {}
 
-  public getUserAssigns(user: string, status?: string): Observable<any> {
-    const params: HttpParams = new HttpParams().set('role', 'user').set('user', user);
+  public getUserAssigns(
+    user: string,
+    pageSize: any,
+    pageNumber: any,
+    status?: string,
+  ): Observable<any> {
+    const params: HttpParams = new HttpParams()
+      .set('role', 'user')
+      .set('user', user)
+      .set('pageNumber', pageNumber)
+      .set('pageSize', pageSize);
+
     if (status) {
       params.set('status', status);
     }

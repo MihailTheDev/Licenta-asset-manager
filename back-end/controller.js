@@ -151,7 +151,7 @@ exports.createAssign = (req, res) => {
 exports.updateAssign = (req, res) => {
   const id = req.params.id;
   const assignProps = req.body;
-
+  console.log(assignProps);
   if (assignProps.status === AssignStatus.ACCEPTED) {
     assignProps.assignDate = Date.now();
   }

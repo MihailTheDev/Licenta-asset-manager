@@ -47,7 +47,6 @@ export class AssignComponent implements OnInit {
   }
 
   public onPaginatorChange(paginator: PageEvent): void {
-    console.log(paginator);
     this.pageNumber = paginator.pageIndex + 1;
     this.populateTable();
   }
@@ -67,19 +66,35 @@ export class AssignComponent implements OnInit {
           this.assigns = response.assigns;
           this.countTotalElements = response.count;
         });
+    } else {
+      this.assignService
+        .getUserAssigns(this.username, this.pageSize, this.pageNumber)
+        .pipe(
+          take(1),
+          map((response) => {
+            this.handleAssign(response.assigns);
+            return response;
+          }),
+        )
+        .subscribe((response) => {
+          this.assigns = response.assigns;
+          this.countTotalElements = response.count;
+        });
     }
   }
 
   private handleAssign(assigns: any[]): void {
     assigns.map((assign: any) => {
       assign.createDate = new Date(assign.createDate).toDateString();
-      if (!assign.assignDate?.length) {
+      console.log(assign.assignDate);
+
+      if (!assign.assignDate) {
         assign.assignDate = '-';
       } else {
         assign.assignDate = new Date(assign.createDate).toDateString();
       }
 
-      if (!assign.returnDate?.length) {
+      if (!assign.returnDate) {
         assign.returnDate = '-';
       } else {
         assign.createDate = new Date(assign.createDate).toDateString();
