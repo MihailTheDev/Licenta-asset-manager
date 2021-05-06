@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
+import { take } from 'rxjs/operators';
+import { AssetService } from '../../services/asset.service';
 
 @Component({
   selector: 'app-display',
@@ -6,7 +9,45 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./display.component.scss'],
 })
 export class DisplayComponent implements OnInit {
-  constructor() {}
+  public assets: any[] = [];
+  public countTotalElements: number = 0;
+  public pageSize = 15;
+  public displayedColumns: string[] = [
+    'name',
+    'group',
+    'size',
+    'yearOfProduct',
+    'group',
+    'goToDetailsButton',
+    'deleteButton',
+  ];
 
-  ngOnInit() {}
+  constructor(private assetService: AssetService, private cd: ChangeDetectorRef) {}
+
+  public ngOnInit(): void {
+    this.assetService
+      .getAssets(1, this.pageSize)
+      .pipe(take(1))
+      .subscribe((response) => {
+        this.assets = response.assets;
+        this.countTotalElements = response.count;
+      });
+  }
+
+  public onDetailsClick(asset: any): void {
+    console.log('asset click');
+    console.log(asset);
+  }
+
+  public onPageIndexChange(paginator: PageEvent): void {
+    console.log(paginator);
+
+    this.assetService
+      .getAssets(paginator.pageIndex + 1, paginator.pageSize)
+      .pipe(take(1))
+      .subscribe((response) => {
+        this.assets = response.assets;
+        this.cd.detectChanges();
+      });
+  }
 }

@@ -2,6 +2,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { ChangeDetectorRef, EventEmitter, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Component, Input, Output } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { filter } from 'rxjs/operators';
 
@@ -26,13 +27,30 @@ export class TableComponent implements OnChanges {
   @Input()
   selectedItems: any[] = [];
 
+  @Input()
+  pageSize: number;
+
+  @Input()
+  totalItems: number = 0;
+
   @Output()
   selectedItem: EventEmitter<any[]> = new EventEmitter();
+
+  @Output()
+  detailsClick: EventEmitter<any> = new EventEmitter();
+
+  @Output()
+  paginatorChange: EventEmitter<PageEvent> = new EventEmitter();
+
+  @Output()
+  elementUpdate: EventEmitter<any> = new EventEmitter();
 
   public tableData: MatTableDataSource<any>;
   public selection: SelectionModel<any>;
 
-  ngOnInit(): void {
+  constructor(private cd: ChangeDetectorRef) {}
+
+  public ngOnInit(): void {
     if (this.selectedItems.length > 0) {
       this.selection = new SelectionModel(true, this.selectedItems);
     } else {
@@ -45,27 +63,30 @@ export class TableComponent implements OnChanges {
     this.selection.changed.pipe(filter(() => this.withSelect)).subscribe(() => {
       this.selectedItem.emit(this.selection.selected);
     });
+
+    console.log(this.pageSize);
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  public ngOnChanges(changes: SimpleChanges): void {
     if (changes.dataSource) {
       this.tableData = new MatTableDataSource<any>(this.dataSource);
+      this.cd.detectChanges();
     }
   }
 
-  isAllSelected() {
+  public isAllSelected(): boolean {
     const numSelected = this.selection.selected.length;
     const numRows = this.tableData.data.length;
     return numSelected === numRows;
   }
 
-  masterToggle() {
+  public masterToggle(): void {
     this.isAllSelected()
       ? this.selection.clear()
       : this.tableData.data.forEach((row) => this.selection.select(row));
   }
 
-  changeSelectRow(event: MatCheckboxChange, row?: any): void {
+  public changeSelectRow(event: MatCheckboxChange, row?: any): void {
     if (!event) {
       return;
     }
@@ -75,5 +96,13 @@ export class TableComponent implements OnChanges {
     } else {
       this.masterToggle();
     }
+  }
+
+  public goToDetails(element: any): void {
+    this.detailsClick.emit(element);
+  }
+
+  public pageChange(paginator: any): void {
+    this.paginatorChange.emit(paginator);
   }
 }

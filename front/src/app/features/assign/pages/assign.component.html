@@ -1,0 +1,14 @@
+<h1>Requesturi</h1>
+
+<div *ngIf="assigns.length > 0" class="table-container">
+  <app-table
+    [dataSource]="assigns"
+    [displayedColumns]="displayedColumns"
+    [withPaginator]="true"
+    [pageSize]="pageSize"
+    [totalItems]="countTotalElements"
+    (elementUpdate)="onElementUpdate($event)"
+    (paginatorChange)="onPaginatorChange($event)"
+  >
+  </app-table>
+</div>

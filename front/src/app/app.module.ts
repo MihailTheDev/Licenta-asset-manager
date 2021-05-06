@@ -11,6 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { StoreModule } from '@ngrx/store';
 import { reducers } from './store';
 import { AuthGuard } from '@core/guards/auth.guard';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,6 +23,7 @@ import { AuthGuard } from '@core/guards/auth.guard';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
+    HttpClientModule,
     StoreModule.forRoot({}, {}),
     StoreModule.forRoot(reducers, {}),
   ],

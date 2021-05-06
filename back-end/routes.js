@@ -15,6 +15,12 @@ router.get('/asset/:id', controller.getAsset);
 
 router.post('/asset', controller.createAsset);
 
-router.get('/link/:assetId', controller.getLinks)
+router.get('/link/:assetId', controller.getLinks);
+
+router.get('/assign', controller.getAssigns);
+
+router.post('/assign', controller.createAssign);
+
+router.patch('/assign/:id', controller.updateAssign);
 
 module.exports = router;

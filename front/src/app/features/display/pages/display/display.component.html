@@ -1,3 +1,14 @@
-<p>
-  display works!
-</p>
+<h1>Lista de obiecte</h1>
+
+<div *ngIf="assets.length > 0" class="table-container">
+  <app-table
+    [dataSource]="assets"
+    [displayedColumns]="displayedColumns"
+    [withPaginator]="true"
+    [pageSize]="pageSize"
+    [totalItems]="countTotalElements"
+    (detailsClick)="onDetailsClick($event)"
+    (paginatorChange)="onPageIndexChange($event)"
+  >
+  </app-table>
+</div>

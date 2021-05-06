@@ -7,10 +7,10 @@ Content-Type: application/json
   "email": "e12345@domain.ro"
 }
 #######
-GET http://localhost:8000/login?username=moshu123456&password=123qwe123
+GET http://localhost:8000/login?username=test&password=test
 
 #######
-GET http://localhost:8000/asset?pageSize=5&pageNumber=4
+GET http://localhost:8000/asset?pageSize=4&pageNumber=1
 
 #######
 GET http://localhost:8000/asset/60856401f3e651d01d9c2927
@@ -19,17 +19,39 @@ GET http://localhost:8000/asset/60856401f3e651d01d9c2927
 GET http://localhost:8000/link/60856401f3e651d01d9c2927
 
 #######
+POST http://localhost:8000/assign
+Content-Type: application/json
+
+{
+  "assetId": "60856401f3e651d01d9c2927",
+  "user": "test"
+}
+#######
+PATCH http://localhost:8000/assign/609268c7200022312bf729c0 HTTP/1.1
+Content-Type: application/json
+
+{
+  "status": "1"
+}
+
+########
+GET http://localhost:8000/assign?role=user&user=test
+
+#######
+GET http://localhost:8000/assign?role=admin&pageSize=15&pageNumber=1
+
+#######
 POST http://localhost:8000/asset
 Content-Type: application/json
 
 {
   "children": [1,2,3],
-  "description": "",
-  "group": "",
-  "name": "Asset21",
+  "description": "veri long long description",
+  "group": "group",
+  "name": "Asset19",
   "observation": "",
   "parent": 13,
-  "serialNumber": "",
-  "size": "",
-  "yearOfProduct": ""
+  "serialNumber": "hex number long and short",
+  "size": "XXXXL",
+  "yearOfProduct": "2015"
 }

@@ -40,7 +40,7 @@ var linkSchema = new mongoose.Schema({
 let AssetModel = mongoose.model('asset', assetSchema);
 let LinkModel = mongoose.model('links', linkSchema);
 
-exports.create = (asset) => {
+exports.createAsset = (asset) => {
   const newAsset = new AssetModel(asset);
   return new Promise((resolve, reject) => {
     newAsset
@@ -85,12 +85,22 @@ exports.getLinksByAssetId = (id) => {
 exports.findWithPaginator = ({ pageSize, pageNumber }) => {
   pageSize = parseInt(pageSize);
   pageNumber = parseInt(pageNumber);
+  console.log(pageSize, pageNumber);
   return AssetModel.find()
     .skip(pageSize * pageNumber - pageSize)
+    .limit(pageSize)
     .exec();
+  // TODO: check for limit returns
 };
 
-// TODO: update for one asset to have one parent and multiple children
+exports.findAll = () => {
+  return AssetModel.find().lean().exec();
+};
+
+exports.getNumberOfAssets = () => {
+  return AssetModel.countDocuments({}).exec();
+};
+
 function saveLinks({ parent, children }, id) {
   const links = [];
   links.push(new LinkModel({ assetId: id, linkedAssetId: parent, type: LinkType.PARENT }));

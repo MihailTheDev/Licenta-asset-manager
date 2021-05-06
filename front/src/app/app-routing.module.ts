@@ -31,6 +31,10 @@ const routes: Routes = [
         loadChildren: () =>
           import('./features/display/display.module').then((m) => m.DisplayModule),
       },
+      {
+        path: 'assign',
+        loadChildren: () => import('./features/assign/assign.module').then((m) => m.AssignModule),
+      },
     ],
   },
 ];

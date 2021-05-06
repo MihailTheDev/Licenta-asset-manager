@@ -1,9 +1,16 @@
 var dbUser = require('./database-user');
 var dbAsset = require('./database-asset');
+var dbAssign = require('./database-assign');
 
 const LinkType = {
   CHILD: 'child',
   PARENT: 'parent',
+};
+
+const AssignStatus = {
+  CREATED: '0',
+  ACCEPTED: '1',
+  RETURNED: '2',
 };
 
 exports.login = (req, res) => {
@@ -12,7 +19,7 @@ exports.login = (req, res) => {
     if (!response) {
       res.status(404).send('not found');
     } else {
-      res.send('successfully');
+      res.send({ login: 'successfully', user: response.username });
     }
   });
 };
@@ -32,7 +39,7 @@ exports.register = (req, res) => {
 exports.createAsset = (req, res) => {
   const asset = req.body;
   dbAsset
-    .create(asset)
+    .createAsset(asset)
     .then((result) => {
       res.send(result);
     })
@@ -86,7 +93,83 @@ exports.getLinks = (req, res) => {
 
 exports.getAssets = (req, res) => {
   const paginator = ({ pageSize, pageNumber } = req.query);
-  dbAsset.findWithPaginator(paginator).then((assets) => {
-    res.send(assets);
-  });
+
+  Promise.all([dbAsset.findWithPaginator(paginator), dbAsset.getNumberOfAssets()]).then(
+    (result) => {
+      res.send({ assets: result[0], count: result[1] });
+    },
+  );
+  // dbAsset.findWithPaginator(paginator).then((assets) => {
+  //   res.send(assets);
+  // });
 };
+
+exports.getAssigns = (req, res) => {
+  const { role, user, status, pageSize, pageNumber } = req.query;
+  var filter = {};
+  if (role === 'user') {
+    filter.user = user;
+  }
+
+  if (status) {
+    filter.status = status;
+  }
+  Promise.all([
+    dbAssign.find(filter, pageSize, pageNumber),
+    dbAsset.findAll(),
+    dbAssign.findFilteredCount(filter),
+  ])
+    .then((result) => {
+      const assigns = result[0];
+      const assets = result[1];
+      const count = result[2];
+
+      const assetsAssigns = [];
+      assigns.forEach((assign) => {
+        const asset = findAssetById(assets, assign.assetId);
+        assign = assign.toObject();
+        assetsAssigns.push({ name: asset.name, yearOfProduct: asset.yearOfProduct, ...assign });
+      });
+
+      res.send({ assigns: assetsAssigns, count });
+    })
+    .catch((err) => res.status(404).send(err));
+};
+
+exports.createAssign = (req, res) => {
+  const assign = req.body;
+  console.log(assign);
+  assign.createDate = Date.now();
+  assign.status = AssignStatus.CREATED;
+
+  dbAssign
+    .create(assign)
+    .then((result) => res.send(result))
+    .catch((err) => res.status(400).send(err));
+};
+
+exports.updateAssign = (req, res) => {
+  const id = req.params.id;
+  const assignProps = req.body;
+
+  if (assignProps.status === AssignStatus.ACCEPTED) {
+    assignProps.assignDate = Date.now();
+  }
+
+  if (assignProps.status === AssignStatus.RETURNED) {
+    assignProps.returnDate = Date.now();
+  }
+  dbAssign
+    .update(id, assignProps)
+    .then((result) => res.send(result))
+    .catch((err) => res.status(400).send(err));
+};
+
+function findAssetById(assets, id) {
+  return assets.reduce((acc, asset) => {
+    if (asset._id === id) {
+      return asset;
+    }
+    return acc;
+  });
+}
