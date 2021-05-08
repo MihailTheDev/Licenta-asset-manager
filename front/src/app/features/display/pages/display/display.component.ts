@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
+import { AssetService } from '@shared/services';
 import { take } from 'rxjs/operators';
-import { AssetService } from '../../services/asset.service';
 
 @Component({
   selector: 'app-display',

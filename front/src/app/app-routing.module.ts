@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from '@core/components';
-import { AuthGuard } from '@core/guards/auth.guard';
+import { AuthGuard, OnlyAdminGuard } from '@core/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -20,7 +20,8 @@ const routes: Routes = [
     children: [
       {
         path: 'create',
-        loadChildren: () => import('./features/create/create.module').then((m) => m.CreateModule),
+        canActivate: [OnlyAdminGuard],
+        loadChildren: () => import('./features/assert/assert.module').then((m) => m.AssertModule),
       },
       {
         path: 'home',
@@ -28,6 +29,7 @@ const routes: Routes = [
       },
       {
         path: 'display',
+        canActivate: [OnlyAdminGuard],
         loadChildren: () =>
           import('./features/display/display.module').then((m) => m.DisplayModule),
       },

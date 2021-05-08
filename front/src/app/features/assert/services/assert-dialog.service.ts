@@ -8,12 +8,13 @@ import { DialogParentAssetComponent } from '../dialogs';
 export class CreateDialogService {
   constructor() {}
 
-  public open(matDialog: any, selectedItems: any[]): Observable<any> {
+  public open(matDialog: any, selectedItems: any[], multipleSelect: boolean): Observable<any> {
     let dialogRef = matDialog.open(DialogParentAssetComponent, {
       height: '600px',
       width: '800px',
       data: {
         selectedItems,
+        multipleSelect,
       },
     });
 

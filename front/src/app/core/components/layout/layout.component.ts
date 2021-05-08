@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { RedirectService } from '@core/services/redirect.service';
 
 interface MenuItem {
   id: string;
   iconLabel: string;
   buttonLabel: string;
   redirectTo: string;
+  forAdminOnly?: boolean;
 }
 
 @Component({
@@ -13,36 +16,54 @@ interface MenuItem {
   styleUrls: ['./layout.component.scss'],
 })
 export class LayoutComponent implements OnInit {
-  expandSideMenu: boolean = false;
-  menuItems: MenuItem[] = [
+  public expandSideMenu: boolean = false;
+  public isAdmin = sessionStorage.getItem('role') === 'admin' ? true : false;
+  public menuItems: MenuItem[] = [
     {
       id: '1',
       iconLabel: 'home',
-      buttonLabel: 'Home',
+      buttonLabel: 'Acasa',
       redirectTo: '/home',
+      forAdminOnly: false,
     },
     {
       id: '2',
       iconLabel: 'add',
-      buttonLabel: 'Create',
+      buttonLabel: 'Creeaza',
       redirectTo: '/create',
+      forAdminOnly: false,
     },
     {
       id: '3',
       iconLabel: 'list',
-      buttonLabel: 'List',
-      redirectTo: '/list',
+      buttonLabel: 'Lista obiecte',
+      redirectTo: '/display',
+      forAdminOnly: true,
+    },
+    {
+      id: '4',
+      iconLabel: 'assignment_late',
+      buttonLabel: 'Requesturi',
+      redirectTo: '/assign',
+      forAdminOnly: false,
     },
   ];
-  constructor() {}
+  constructor(private redirect: RedirectService, private router: Router) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.isAdmin);
+  }
 
-  public toogle(): void {
+  public toggle(): void {
     this.expandSideMenu = !this.expandSideMenu;
   }
 
-  public onMenuItemClick(item: any): void {
-    console.log(item);
+  public onMenuItemClick(menuItem: any): void {
+    this.router.navigate([menuItem.redirectTo]);
+  }
+
+  public logOut(): void {
+    sessionStorage.clear();
+    this.redirect.toLogin();
   }
 }

@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CreateComponent } from './pages';
+import { AssertComponent } from './pages';
 
 const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    component: CreateComponent,
+    component: AssertComponent,
   },
 ];
 
@@ -14,4 +14,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class CreateRoutingModule {}
+export class AssertRoutingModule {}

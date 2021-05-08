@@ -15,3 +15,9 @@ export class AuthGuard implements CanActivate {
     return false;
   }
 }
+
+export class OnlyAdminGuard implements CanActivate {
+  canActivate(): boolean {
+    return sessionStorage.getItem('role') === 'admin' ? true : false;
+  }
+}

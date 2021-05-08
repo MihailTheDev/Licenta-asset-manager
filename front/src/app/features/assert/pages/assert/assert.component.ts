@@ -2,45 +2,53 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { BaseComponent } from '@core/components';
+import { AssetService } from '@shared/services';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { GROUP_ID_TYPES, OPTIONS } from '../../constants';
-import { CreateFormGroup } from '../../forms/create.form';
-import { CreateDialogService } from '../../services/create-dialog.service';
+import { CreateFormGroup } from '../../forms/assert.form';
+import { CreateDialogService } from '../../services/assert-dialog.service';
 @Component({
-  selector: 'app-create',
-  templateUrl: './create.component.html',
-  styleUrls: ['./create.component.scss'],
+  templateUrl: './assert.component.html',
+  styleUrls: ['./assert.component.scss'],
 })
-export class CreateComponent extends BaseComponent implements OnInit {
+export class AssertComponent extends BaseComponent implements OnInit {
   public form: FormGroup = new CreateFormGroup();
-  public parentAssets: any[] = [];
-  public childAssets: any[] = [];
+  public parent: any[] = [];
+  public children: any[] = [];
   public displayedColumns: string[] = ['name', 'group', 'serialNumber'];
   public sliderSerialNumberControl = new FormControl('');
   public linkedAssetsError = false;
 
-  constructor(private dialogService: CreateDialogService, private dialog: MatDialog) {
+  constructor(
+    private dialogService: CreateDialogService,
+    private dialog: MatDialog,
+    private assetService: AssetService,
+  ) {
     super();
   }
 
   ngOnInit() {
     this.serialNumberSliderChange();
+    this.form.disable();
   }
 
   public openParentPopUp(): void {
     this.subscription$ = this.dialogService
-      .open(this.dialog, this.parentAssets)
-      .subscribe((selectedItems) => {
-        this.parentAssets = selectedItems;
+      .open(this.dialog, this.parent, false)
+      .subscribe((selectedItems: any) => {
+        this.form.controls.parent.setValue(selectedItems[0]._id);
+
+        this.parent = selectedItems;
         this.checkLinkedAssets();
       });
   }
 
   public openChildPopUp(): void {
     this.subscription$ = this.dialogService
-      .open(this.dialog, this.childAssets)
-      .subscribe((selectedItems) => {
-        this.childAssets = selectedItems;
+      .open(this.dialog, this.children, true)
+      .subscribe((selectedItems: any) => {
+        this.form.controls.children.setValue(selectedItems.map((item: any) => item._id));
+        this.children = selectedItems;
         this.checkLinkedAssets();
       });
   }
@@ -63,6 +71,18 @@ export class CreateComponent extends BaseComponent implements OnInit {
 
   public onSubmit(): void {
     console.log(this.form.value);
+    const asset = this.form.value;
+    console.log(asset.parent);
+    console.log(asset.children);
+
+    this.assetService.createAsset(this.form.value).subscribe(
+      (response) => {
+        console.log(response);
+      },
+      (err) => {
+        console.log(err);
+      },
+    );
   }
 
   public onReset(): void {
@@ -82,8 +102,8 @@ export class CreateComponent extends BaseComponent implements OnInit {
   }
 
   private checkLinkedAssets(): void {
-    this.linkedAssetsError = this.parentAssets
-      .map((asset) => asset.id)
-      .some((parentId) => this.childAssets.map((asset) => asset.id).includes(parentId));
+    this.linkedAssetsError = this.parent
+      .map((asset) => asset._id)
+      .some((parentId) => this.children.map((asset) => asset._id).includes(parentId));
   }
 }

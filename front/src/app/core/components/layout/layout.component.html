@@ -1,7 +1,7 @@
 <mat-drawer-container class="example-container">
   <mat-drawer #drawer mode="side" opened [class.expand]="expandSideMenu">
     <mat-toolbar color="primary">
-      <button mat-icon-button aria-label="Menu icon" (click)="toogle()">
+      <button mat-icon-button aria-label="Menu icon" (click)="toggle()" class="menu-button">
         <mat-icon>menu</mat-icon>
       </button>
       <ng-container *ngFor="let item of menuItems">
@@ -9,15 +9,19 @@
           mat-icon-button
           [attr.aria-label]="item.iconLabel + 'icon'"
           (click)="onMenuItemClick(item)"
+          *ngIf="!(item.forAdminOnly && !isAdmin)"
         >
-          <mat-icon>{{ item.iconLabel }}</mat-icon>
-          <span *ngIf="expandSideMenu">{{ item.buttonLabel }}</span>
+          <mat-icon class="menu-button-item-icon">{{ item.iconLabel }}</mat-icon>
+          <span *ngIf="expandSideMenu" class="button-label">{{ item.buttonLabel }}</span>
         </button>
       </ng-container>
 
       <div class="profile-container">
-        <button mat-icon-button aria-label="Menu icon" (click)="toogle()">
+        <button mat-icon-button aria-label="Menu icon" (click)="toggle()">
           <mat-icon>person</mat-icon>
+        </button>
+        <button mat-icon-button aria-label="Menu icon" (click)="logOut()">
+          <mat-icon>exit_to_app</mat-icon>
         </button>
       </div>
     </mat-toolbar>

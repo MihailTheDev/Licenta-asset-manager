@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CreateRoutingModule } from './create-routing.module';
-import { CreateComponent } from './pages';
+import { AssertRoutingModule } from './assert-routing.module';
+import { AssertComponent } from './pages';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
@@ -24,21 +24,20 @@ const MATERIAL_COMPONENTS: any[] = [
   MatSlideToggleModule,
   MatDialogModule,
   MatButtonModule,
-
 ];
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
-    CreateRoutingModule,
+    AssertRoutingModule,
     ReactiveFormsModule,
     MATERIAL_COMPONENTS,
   ],
   declarations: [
-    CreateComponent,
+    AssertComponent,
     DialogParentAssetComponent,
     ElectronicAssetsFormComponent,
     UsableAssetsFormComponent,
   ],
 })
-export class CreateModule {}
+export class AssertModule {}

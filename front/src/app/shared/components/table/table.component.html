@@ -14,7 +14,7 @@
         <mat-checkbox
           (click)="$event.stopPropagation()"
           (change)="changeSelectRow($event, row)"
-          [checked]="selection.isSelected(row)"
+          [checked]="isElementSelected(row) || selection.isSelected(row)"
         >
         </mat-checkbox>
       </td>

@@ -1,5 +1,5 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { ChangeDetectorRef, EventEmitter, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { Component, Input, Output } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { PageEvent } from '@angular/material/paginator';
@@ -14,6 +14,9 @@ import { filter } from 'rxjs/operators';
 export class TableComponent implements OnChanges {
   @Input()
   withSelect: boolean = false;
+
+  @Input()
+  multipleSelect: boolean = true;
 
   @Input()
   withPaginator: boolean = false;
@@ -52,19 +55,21 @@ export class TableComponent implements OnChanges {
 
   public ngOnInit(): void {
     if (this.selectedItems.length > 0) {
-      this.selection = new SelectionModel(true, this.selectedItems);
+      console.log(this.selectedItems);
+
+      this.selection = new SelectionModel(this.multipleSelect, this.selectedItems);
     } else {
-      this.selection = new SelectionModel(true);
+      this.selection = new SelectionModel(this.multipleSelect);
     }
     if (this.withSelect) {
       this.displayedColumns.unshift('select');
     }
     this.selectedItem.emit(this.selection.selected);
     this.selection.changed.pipe(filter(() => this.withSelect)).subscribe(() => {
+      console.log('change');
+
       this.selectedItem.emit(this.selection.selected);
     });
-
-    console.log(this.pageSize);
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
@@ -104,5 +109,9 @@ export class TableComponent implements OnChanges {
 
   public pageChange(paginator: any): void {
     this.paginatorChange.emit(paginator);
+  }
+
+  public isElementSelected(element: any): boolean {
+    return this.selection.selected.some((item) => item._id === element._id);
   }
 }

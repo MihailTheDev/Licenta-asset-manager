@@ -1,3 +1,5 @@
+$field-width: 100%;
+
 :host {
   display: block;
   margin: 56px;
@@ -10,12 +12,12 @@
 
   .form-row {
     display: flex;
-    margin: 0 16px;
+    margin: 8px 16px;
   }
 
   .name-container {
     mat-form-field {
-      width: 75%;
+      width: $field-width;
     }
   }
 
@@ -23,7 +25,7 @@
     height: 112px;
     margin-bottom: 16px;
     mat-form-field {
-      width: 75%;
+      width: 100%;
       textarea {
         height: 96px;
       }
@@ -49,13 +51,13 @@
   }
 
   .flex-space-around {
-    width: 75%;
+    width: $field-width;
     display: flex;
     justify-content: space-around;
   }
 
   .serial-number-container {
-    width: 75%;
+    width: $field-width;
     display: flex;
     flex-direction: row;
     align-items: center;

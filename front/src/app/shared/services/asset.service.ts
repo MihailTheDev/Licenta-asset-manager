@@ -17,4 +17,8 @@ export class AssetService {
 
     return this.http.get(this.url, { params });
   }
+
+  public createAsset(asset: any): Observable<any> {
+    return this.http.post(this.url, asset);
+  }
 }

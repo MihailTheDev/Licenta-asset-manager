@@ -44,10 +44,8 @@ export class LoginComponent extends BaseComponent implements OnInit {
   public onSubmit(): void {
     this.auth.login(this.formValue).subscribe(
       (response) => {
-        console.log(response);
-
         sessionStorage.setItem('loggedIn', 'true');
-        sessionStorage.setItem('role', 'admin');
+        sessionStorage.setItem('role', response.role);
         sessionStorage.setItem('username', response.user);
         this.snackBar.open('Logarea a fost realizata cu succes', undefined, { duration: 1000 });
         this.redirect.toHome();

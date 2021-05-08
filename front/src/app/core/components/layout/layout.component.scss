@@ -1,5 +1,5 @@
 $drawer-minimal-width: 56px;
-$drawer-maximum-width: 100px;
+$drawer-maximum-width: 150px;
 
 :host {
   mat-toolbar {
@@ -22,16 +22,33 @@ $drawer-maximum-width: 100px;
     width: $drawer-minimal-width;
     mat-toolbar {
       width: $drawer-minimal-width;
+
+      .menu-button {
+        margin-bottom: 16px;
+      }
     }
   }
+
   .expand {
     width: $drawer-maximum-width;
     mat-toolbar {
       width: $drawer-maximum-width;
+      align-items: flex-start;
+      ::ng-deep {
+        .menu-button-item-icon {
+          margin-right: 20px;
+        }
+      }
     }
+  }
+
+  .action-buttons {
+    margin-top: 16px;
   }
 
   .profile-container {
     margin-top: auto;
+    display: flex;
+    flex-direction: column;
   }
 }

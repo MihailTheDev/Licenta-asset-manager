@@ -24,16 +24,17 @@ export class AssignComponent implements OnInit {
     'assignDate',
     'returnDate',
     'status',
-    'updateButton',
-    'goToDetailsButton',
   ];
   constructor(private assignService: AssignService) {}
 
   ngOnInit() {
     this.isAdmin = sessionStorage.getItem('role') === 'admin' ? true : false;
     this.username = sessionStorage.getItem('username') as string;
-    console.log(this.isAdmin);
-    console.log(this.username);
+    if (this.isAdmin) {
+      this.displayedColumns.push('updateButton', 'goToDetailsButton');
+    } else {
+      this.displayedColumns.push('goToDetailsButton');
+    }
 
     this.populateTable();
   }

@@ -25,10 +25,14 @@
   [withPaginator]="true"
   [dataSource]="!showSelected ? dataSource : selectedItems"
   [displayedColumns]="displayedColumns"
+  [pageSize]="pageSize"
+  [totalItems]="assetsCount"
   [selectedItems]="this.data.selectedItems"
+  [multipleSelect]="data.multipleSelect"
   (selectedItem)="onSelectItem($event)"
+  (paginatorChange)="onPaginatorChange($event)"
 ></app-table>
 <div class="actions-container">
-  <button mat-button (click)="submit()">Submit ({{ selectedItems.length }})</button>
+  <button mat-button color="primary" (click)="submit()">Submit ({{ selectedItems.length }})</button>
   <button mat-button (click)="cancel()">Cancel</button>
 </div>

@@ -1,47 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { PageEvent } from '@angular/material/paginator';
+import { AssetService } from '@shared/services';
 import { OPTIONS } from '../../constants';
 import { ModalAssetItem } from '../../models';
-
-const ELEMENT_DATA: ModalAssetItem[] = [
-  {
-    id: '1',
-    name: 'Unitate acer A4201',
-    group: 'Birotica',
-    serialNumber: '123456789ABCDEF',
-  },
-  {
-    id: '2',
-    name: 'Unitate acer A4201',
-    group: 'Birotica',
-    serialNumber: '123456789ABCDEF',
-  },
-  {
-    id: '3',
-    name: 'Unitate acer A4201',
-    group: 'Birotica',
-    serialNumber: '123456789ABCDEF',
-  },
-  {
-    id: '4',
-    name: 'Unitate acer A4201',
-    group: 'Birotica',
-    serialNumber: '123456789ABCDEF',
-  },
-  {
-    id: '5',
-    name: 'Unitate acer A4201',
-    group: 'Birotica',
-    serialNumber: '123456789ABCDEF',
-  },
-  {
-    id: '6',
-    name: 'Unitate acer A4201',
-    group: 'Birotica',
-    serialNumber: '123456789ABCDEF',
-  },
-];
 
 @Component({
   selector: 'app-dialog-parent-asset',
@@ -55,37 +18,55 @@ export class DialogParentAssetComponent implements OnInit {
     serialNumber: new FormControl(''),
   });
   showSelectedControl = new FormControl('');
-  public dataSource = ELEMENT_DATA;
+  public dataSource: any[];
   public showOnlySelected = false;
+  public pageSize = 7;
+  public pageNumber = 1;
+  public assetsCount: number;
   public selectedItems: any[] = [];
   public displayedColumns: string[] = ['name', 'group', 'serialNumber'];
 
   constructor(
+    private assetService: AssetService,
     public dialogRef: MatDialogRef<DialogParentAssetComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { selectedItems: any },
+    @Inject(MAT_DIALOG_DATA) public data: { selectedItems: any; multipleSelect: boolean },
   ) {}
 
-  ngOnInit() {
-    console.log(this.data);
+  public ngOnInit(): void {
+    this.populateTable();
   }
 
-  onSelectItem(items: any[]) {
+  public onSelectItem(items: any[]): void {
+    console.log('selection change');
+
     this.selectedItems = items;
   }
 
-  submit(): void {
+  public submit(): void {
     this.dialogRef.close(this.selectedItems);
   }
 
-  cancel(): void {
+  public cancel(): void {
     this.dialogRef.close(this.selectedItems);
   }
 
-  get OPTIONS() {
+  public onPaginatorChange(pageChange: PageEvent): void {
+    this.pageNumber = pageChange.pageIndex + 1;
+    this.populateTable();
+  }
+
+  private populateTable(): void {
+    this.assetService.getAssets(this.pageNumber, this.pageSize).subscribe((result) => {
+      this.dataSource = result.assets;
+      this.assetsCount = result.count;
+    });
+  }
+
+  public get OPTIONS() {
     return OPTIONS;
   }
 
-  get showSelected(): boolean {
+  public get showSelected(): boolean {
     return this.showSelectedControl.value;
   }
 }

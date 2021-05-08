@@ -15,17 +15,19 @@ const AssignStatus = {
 
 exports.login = (req, res) => {
   const user = ({ username, password } = req.query);
-  dbUser.find(user).then((response) => {
-    if (!response) {
+  dbUser.find(user).then((result) => {
+    if (!result) {
       res.status(404).send('not found');
     } else {
-      res.send({ login: 'successfully', user: response.username });
+      console.log(result);
+      res.send({ login: 'successfully', user: result.username, role: result.role });
     }
   });
 };
 
 exports.register = (req, res) => {
   const user = req.body;
+  user.role = 'user';
   dbUser
     .create(user)
     .then((result) => {
@@ -38,12 +40,14 @@ exports.register = (req, res) => {
 
 exports.createAsset = (req, res) => {
   const asset = req.body;
+  console.log(asset);
   dbAsset
     .createAsset(asset)
     .then((result) => {
       res.send(result);
     })
     .catch((err) => {
+      console.log(err);
       res.status(400).send(err);
     });
 };

@@ -1,4 +1,4 @@
-<h1>Create asset</h1>
+<h1>Creaza obiect</h1>
 
 <div class="form-container" [formGroup]="form">
   <div class="form-row name-container">
@@ -16,7 +16,7 @@
 
   <div class="form-row flex-space-around">
     <mat-form-field appearance="fill">
-      <mat-label>Size</mat-label>
+      <mat-label>Marime</mat-label>
       <mat-select formControlName="size">
         <mat-option *ngFor="let size of OPTIONS.SIZES" [value]="size">
           {{ size }}
@@ -24,12 +24,8 @@
       </mat-select>
     </mat-form-field>
 
-    <mat-form-field appearance="standard">
-      <mat-label>Year of product: </mat-label>
-      <input formControlName="year" matInput type="number" aria-label="" name="" />
-    </mat-form-field>
     <mat-form-field appearance="fill">
-      <mat-label>Choose a date</mat-label>
+      <mat-label>Data de fabricare</mat-label>
       <input formControlName="date" matInput [matDatepicker]="datepicker" />
       <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
       <mat-datepicker #datepicker disabled="false">
@@ -39,15 +35,24 @@
         </mat-datepicker-actions>
       </mat-datepicker>
     </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Grup</mat-label>
+      <mat-select formControlName="group">
+        <mat-option *ngFor="let types of OPTIONS.GROUP_TYPES" [value]="types.id">
+          {{ types.label }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
 
   <div class="form-row serial-number-container">
     <mat-slide-toggle [formControl]="sliderSerialNumberControl" color="primary">
-      Serial number
+      Numar identificare
     </mat-slide-toggle>
 
     <mat-form-field appearance="standard">
-      <mat-label>Serial number: </mat-label>
+      <mat-label>Numar identificare: </mat-label>
       <input
         formControlName="serialNumber"
         matInput
@@ -59,7 +64,7 @@
 
   <div class="form-row textarea-container">
     <mat-form-field>
-      <mat-label>Description</mat-label>
+      <mat-label>Descriere</mat-label>
       <textarea
         formControlName="description"
         matInput
@@ -70,7 +75,7 @@
 
   <div class="form-row textarea-container">
     <mat-form-field class="example-full-width">
-      <mat-label>Observation</mat-label>
+      <mat-label>Observatii</mat-label>
       <textarea
         formControlName="observation"
         matInput
@@ -81,34 +86,27 @@
   <!-- TODO: remove resizable button on textarea -->
 
   <div class="form-row button-container flex-space-around">
-    <button mat-button color="primary" (click)="openParentPopUp()">Select parent asset</button>
+    <button mat-button color="primary" (click)="openParentPopUp()">Alege obiect parinte</button>
 
-    <button mat-button color="primary" (click)="openChildPopUp()">Select child asset</button>
+    <button mat-button color="primary" (click)="openChildPopUp()">Alege sub-obiecte</button>
   </div>
 
-  <div class="form-row table-container" *ngIf="parentAssets.length > 0">
-    <mat-label [class.red-text]="linkedAssetsError"> Parent assets </mat-label>
-    <app-table [dataSource]="parentAssets" [displayedColumns]="displayedColumns"> </app-table>
+  <div class="form-row table-container" *ngIf="parent.length > 0">
+    <mat-label [class.red-text]="linkedAssetsError"> Obiect parinte </mat-label>
+    <app-table [dataSource]="parent" [displayedColumns]="displayedColumns"> </app-table>
   </div>
 
-  <div class="form-row table-container" *ngIf="childAssets.length > 0">
-    <mat-label [class.red-text]="linkedAssetsError"> Child assets </mat-label>
-    <app-table [dataSource]="childAssets" [displayedColumns]="displayedColumns"> </app-table>
+  <div class="form-row table-container" *ngIf="children.length > 0">
+    <mat-label [class.red-text]="linkedAssetsError"> Sub obiecte </mat-label>
+    <app-table [dataSource]="children" [displayedColumns]="displayedColumns"> </app-table>
   </div>
 
   <div class="form-row" *ngIf="linkedAssetsError">
-    <mat-label class="red-text"> You can't have the same asset as both parent and child </mat-label>
+    <mat-label class="red-text"> Nu poti avea acelasi obiect ca parinte si copil </mat-label>
   </div>
 
   <div class="form-row">
-    <mat-form-field appearance="fill">
-      <mat-label>Group</mat-label>
-      <mat-select formControlName="group">
-        <mat-option *ngFor="let types of OPTIONS.GROUP_TYPES" [value]="types.id">
-          {{ types.label }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+
   </div>
 
   <app-electronic-assets-form
@@ -122,6 +120,6 @@
   color="primary"
   [disabled]="form.invalid && !linkedAssetsError"
 >
-  Submit
+  Salveaza
 </button>
-<button mat-raised-button (click)="onReset()" color="warn">Reset</button>
+<button mat-raised-button (click)="onReset()" color="warn">Reseteaza campurile</button>
