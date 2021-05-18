@@ -1,0 +1,61 @@
+<mat-horizontal-stepper #stepper>
+  <mat-step errorMessage="Name is required.">
+    <ng-template matStepLabel> Alege obiect </ng-template>
+
+    <app-table
+      [withSelect]="true"
+      [withPaginator]="true"
+      [dataSource]="dataSource"
+      [displayedColumns]="displayedColumns"
+      [pageSize]="pageSize"
+      [totalItems]="assetsCount"
+      [multipleSelect]="false"
+      (selectedItem)="onSelectItem($event)"
+      (paginatorChange)="onPaginatorChange($event)"
+    ></app-table>
+    <button mat-button matStepperNext color="primary" [disabled]="!selectedItem">Selecteaza</button>
+  </mat-step>
+  <mat-step errorMessage="Address is required.">
+    <ng-template matStepLabel> Verifica alegerea </ng-template>
+    <mat-list>
+      <mat-list-item>
+        <h3>Nume: {{ selectedItem?.name }}</h3>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <h3>grup: {{ selectedItem?.group }}</h3>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <h3>SerialNumber: {{ selectedItem?.serialNumber }}</h3>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <h3>Year of product: {{ selectedItem?.yearOfProduct }}</h3>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <h3>Size: {{ selectedItem?.size }}</h3>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <h3>Description: {{ selectedItem?.description }}</h3>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <h3>Observation: {{ selectedItem?.observation }}</h3>
+      </mat-list-item>
+
+      <button mat-button matStepperPrevious color="primary">Alege alt obiect</button>
+      <button mat-button color="primary" (click)="create(stepper)">Creaza cerere</button>
+    </mat-list>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Ai terminat</ng-template>
+    <p>Requestul a fost creat cu succes.</p>
+    <div>
+      <button mat-button (click)="stepper.reset()">Creaza inca o cerere</button>
+      <button mat-button (click)="close()">Inchide</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>

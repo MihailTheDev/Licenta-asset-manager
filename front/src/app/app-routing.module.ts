@@ -24,6 +24,10 @@ const routes: Routes = [
         loadChildren: () => import('./features/assert/assert.module').then((m) => m.AssertModule),
       },
       {
+        path: 'edit',
+        loadChildren: () => import('./features/assert/assert.module').then((m) => m.AssertModule),
+      },
+      {
         path: 'home',
         loadChildren: () => import('./features/home/home.module').then((m) => m.HomeModule),
       },

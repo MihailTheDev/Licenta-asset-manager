@@ -1,10 +1,10 @@
-<h1>Bun venit, {{username}} cu drepturi de {{isAdmin? 'administrator': 'utilizator'}}</h1>
+<h1>Bun venit, {{ username }} cu drepturi de {{ isAdmin ? 'administrator' : 'utilizator' }}</h1>
 
 <h3>Linkuri rapide:</h3>
 <div class="fast-links-container">
   <button mat-raised-button color="primary">Vezi obiecte</button>
   <button mat-raised-button color="primary">Creeaza tichet</button>
-  <button mat-raised-button color="primary">Cere obiect</button>
+  <button mat-raised-button color="primary" (click)="createRequest()">Cere obiect</button>
 </div>
 
 <h3>Overview:</h3>

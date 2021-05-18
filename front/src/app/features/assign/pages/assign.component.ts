@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
+import { AssignService } from '@shared/services/assign.service';
 import { map, take } from 'rxjs/operators';
-import { AssignService } from '../services/assign.service';
 
 @Component({
   selector: 'app-assign',
@@ -25,6 +26,8 @@ export class AssignComponent implements OnInit {
     'returnDate',
     'status',
   ];
+  public status: string | undefined;
+
   constructor(private assignService: AssignService) {}
 
   ngOnInit() {
@@ -35,14 +38,27 @@ export class AssignComponent implements OnInit {
     } else {
       this.displayedColumns.push('goToDetailsButton');
     }
-
     this.populateTable();
   }
 
+  public onSelectChange(event: any): void {
+    if (event.value === 'created') {
+      this.status = '0';
+    } else if (event.value === 'assigned') {
+      this.status = '1';
+    } else if (event.value === 'returned') {
+      this.status = '2';
+    } else {
+      this.status = undefined;
+    }
+    console.log(event, this.status);
+
+    this.populateTable();
+  }
   public onElementUpdate(element: any): void {
     this.assignService
       .updateStatus(element._id, element.status === 'Created' ? '1' : '2')
-      .subscribe((result) => {
+      .subscribe((_) => {
         this.populateTable();
       });
   }
@@ -55,7 +71,7 @@ export class AssignComponent implements OnInit {
   private populateTable(): void {
     if (this.isAdmin) {
       this.assignService
-        .getAdminAssigns(this.pageSize, this.pageNumber)
+        .getAdminAssigns(this.pageSize, this.pageNumber, this.status)
         .pipe(
           take(1),
           map((response) => {
@@ -69,7 +85,7 @@ export class AssignComponent implements OnInit {
         });
     } else {
       this.assignService
-        .getUserAssigns(this.username, this.pageSize, this.pageNumber)
+        .getUserAssigns(this.username, this.pageSize, this.pageNumber, this.status)
         .pipe(
           take(1),
           map((response) => {
@@ -87,7 +103,6 @@ export class AssignComponent implements OnInit {
   private handleAssign(assigns: any[]): void {
     assigns.map((assign: any) => {
       assign.createDate = new Date(assign.createDate).toDateString();
-      console.log(assign.assignDate);
 
       if (!assign.assignDate) {
         assign.assignDate = '-';

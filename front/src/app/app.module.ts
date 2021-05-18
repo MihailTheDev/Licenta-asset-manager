@@ -12,6 +12,7 @@ import { StoreModule } from '@ngrx/store';
 import { reducers } from './store';
 import { AuthGuard, OnlyAdminGuard } from '@core/guards/auth.guard';
 import { HttpClientModule } from '@angular/common/http';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,6 +23,7 @@ import { HttpClientModule } from '@angular/common/http';
     CoreModule,
     ReactiveFormsModule,
     MatFormFieldModule,
+    MatDialogModule,
     MatInputModule,
     HttpClientModule,
     StoreModule.forRoot({}, {}),

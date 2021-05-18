@@ -4,7 +4,6 @@ import { AssetService } from '@shared/services';
 import { take } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-display',
   templateUrl: './display.component.html',
   styleUrls: ['./display.component.scss'],
 })

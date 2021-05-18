@@ -1,5 +1,10 @@
 <h1>Requesturi</h1>
-
+<mat-select (selectionChange)="onSelectChange($event)">
+  <mat-option value="created">Create</mat-option>
+  <mat-option value="assigned">Acceptate</mat-option>
+  <mat-option value="returned">Returnate</mat-option>
+  <mat-option value="all">All</mat-option>
+</mat-select>
 <div *ngIf="assigns.length > 0" class="table-container">
   <app-table
     [dataSource]="assigns"

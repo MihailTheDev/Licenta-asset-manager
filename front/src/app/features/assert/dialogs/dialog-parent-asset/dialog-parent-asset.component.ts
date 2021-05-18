@@ -37,8 +37,6 @@ export class DialogParentAssetComponent implements OnInit {
   }
 
   public onSelectItem(items: any[]): void {
-    console.log('selection change');
-
     this.selectedItems = items;
   }
 
