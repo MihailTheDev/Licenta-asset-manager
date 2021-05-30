@@ -38,7 +38,7 @@ Content-Type: application/json
 GET http://localhost:8000/assign?role=user&user=test&pageSize=15&pageNumber=1
 
 #######
-GET http://localhost:8000/assign?role=admin&pageSize=15&pageNumber=1
+GET http://localhost:8000/assign?role=admin&pageSize=15&pageNumber=1&status=1
 
 #######
 POST http://localhost:8000/asset

@@ -1,0 +1,11 @@
+POST http://localhost:8000/ticket
+Content-Type: application/json
+
+{
+  "description": "first test description",
+  "assetId": "12345",
+  "user": "12345"
+}
+
+###
+GET http://localhost:8000/ticket?role=admin

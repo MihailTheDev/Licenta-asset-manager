@@ -11,6 +11,10 @@ import { DialogCreateRequestComponent } from './dialogs/dialog-create-request/di
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './pages';
 import { MatListModule } from '@angular/material/list';
+import { DialogCreateTicketComponent } from './dialogs/dialog-create-ticket/dialog-create-ticket.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 const MATERIAL_MODULES: any[] = [
   MatButtonModule,
@@ -19,11 +23,12 @@ const MATERIAL_MODULES: any[] = [
   MatDividerModule,
   MatStepperModule,
   MatTooltipModule,
-
+  MatInputModule,
   MatListModule,
+  MatFormFieldModule,
 ];
 @NgModule({
-  declarations: [HomeComponent, DialogCreateRequestComponent],
-  imports: [CommonModule, SharedModule, HomeRoutingModule, MATERIAL_MODULES],
+  declarations: [HomeComponent, DialogCreateRequestComponent, DialogCreateTicketComponent],
+  imports: [CommonModule, SharedModule, HomeRoutingModule, MATERIAL_MODULES, ReactiveFormsModule],
 })
 export class HomeModule {}

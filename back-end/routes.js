@@ -23,4 +23,8 @@ router.post('/assign', controller.createAssign);
 
 router.patch('/assign/:id', controller.updateAssign);
 
+router.post('/ticket', controller.createTicket);
+
+router.get('/ticket', controller.getTickets);
+
 module.exports = router;

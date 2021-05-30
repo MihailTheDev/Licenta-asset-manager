@@ -20,4 +20,8 @@ export class HomeComponent implements OnInit {
   public createRequest(): void {
     this.dialogService.openRequest(this.matDialog, [], false);
   }
+
+  public createTicket(): void {
+    this.dialogService.openTicket(this.matDialog, [], false);
+  }
 }

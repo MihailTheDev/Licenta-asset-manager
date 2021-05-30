@@ -1,7 +1,7 @@
 var dbUser = require('./database-user');
 var dbAsset = require('./database-asset');
 var dbAssign = require('./database-assign');
-
+var dbTicket = require('./database-ticket');
 const LinkType = {
   CHILD: 'child',
   PARENT: 'parent',
@@ -11,6 +11,11 @@ const AssignStatus = {
   CREATED: '0',
   ACCEPTED: '1',
   RETURNED: '2',
+};
+
+const TicketStatus = {
+  CREATED: '0',
+  SOLVED: '1',
 };
 
 exports.login = (req, res) => {
@@ -142,7 +147,6 @@ exports.getAssigns = (req, res) => {
 
 exports.createAssign = (req, res) => {
   const assign = req.body;
-  console.log(assign);
   assign.createDate = Date.now();
   assign.status = AssignStatus.CREATED;
 
@@ -167,6 +171,57 @@ exports.updateAssign = (req, res) => {
     .update(id, assignProps)
     .then((result) => res.send(result))
     .catch((err) => res.status(400).send(err));
+};
+
+exports.createTicket = (req, res) => {
+  const ticket = req.body;
+  ticket.createDate = Date.now();
+  ticket.status = TicketStatus.CREATED;
+  dbTicket
+    .create(ticket)
+    .then((result) => res.send(result))
+    .catch((err) => res.status(400).send(err));
+};
+
+exports.updateTicket = (req, res) => {
+  const id = req.params.id;
+  const ticketProps = req.body;
+  dbTicket
+    .update(id, ticketProps)
+    .then((result) => res.send(result))
+    .catch((err) => res.status(404).send(err));
+};
+
+exports.getTickets = (req, res) => {
+  const { role, user, status, pageSize, pageNumber } = req.query;
+  const filter = {};
+
+  if (role === 'user') {
+    filter.user = user;
+  }
+  if (status) {
+    filter.status = status;
+  }
+
+  Promise.all([
+    dbTicket.find(filter, pageSize, pageNumber),
+    dbTicket.findFilteredCount(filter),
+    dbAsset.findAll(),
+  ])
+    .then(([tickets, allTicketsCount, assets]) => {
+      const ticketedAssigns = [];
+      tickets.forEach((ticket) => {
+        const asset = findAssetById(assets, ticket.assetId);
+        ticket = ticket.toObject();
+        ticketedAssigns.push({ name: asset.name, yearOfProduct: asset.yearOfProduct, ...ticket });
+      });
+
+      res.send({ tickets: ticketedAssigns, count: allTicketsCount });
+    })
+    .catch((err) => {
+      console.log(err);
+      return res.status(404).send(JSON.stringify(err));
+    });
 };
 
 function findAssetById(assets, id) {
