@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { DialogCreateRequestComponent } from '../../dialogs/dialog-create-request/dialog-create-request.component';
-import { DialogCreateTicketComponent } from '../../dialogs/dialog-create-ticket/dialog-create-ticket.component';
+import { DialogCreateRequestComponent } from '../dialogs/dialog-create-request/dialog-create-request.component';
+import { DialogCreateTicketComponent } from '../dialogs/dialog-create-ticket/dialog-create-ticket.component';
 
 @Injectable({
   providedIn: 'root',

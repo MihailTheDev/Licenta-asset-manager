@@ -41,6 +41,10 @@ const routes: Routes = [
         path: 'assign',
         loadChildren: () => import('./features/assign/assign.module').then((m) => m.AssignModule),
       },
+      {
+        path: 'ticket',
+        loadChildren: () => import('./features/ticket/ticket.module').then((m) => m.TicketModule),
+      },
     ],
   },
 ];

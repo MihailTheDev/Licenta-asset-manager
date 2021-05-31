@@ -22,4 +22,8 @@ export class RedirectService {
   public toCreate() {
     this.router.navigate(['/create']);
   }
+
+  public toTickets() {
+    this.router.navigate(['/ticket']);
+  }
 }

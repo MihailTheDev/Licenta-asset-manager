@@ -1,0 +1,12 @@
+:host {
+  ::ng-deep {
+    mat-card {
+      width: 260px !important;
+    }
+    .card-content {
+      display: block;
+      height: 160px;
+      overflow-y: auto;
+    }
+  }
+}

@@ -1,0 +1,30 @@
+<h1>Tichete</h1>
+
+<mat-slide-toggle (toggleChange)="onSliderChange($event)">
+  Arata doar cele nerezolvate
+</mat-slide-toggle>
+<mat-grid-list cols="4">
+  <mat-grid-tile *ngFor="let ticket of tickets">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title>{{ ticket.name }}</mat-card-title>
+        <mat-card-subtitle>
+          Status: {{ ticket.status === '0' ? 'Creat' : 'Rezolvat' }}
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="card-content">
+          {{ ticket.description }}
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button [disabled]="ticket.status === '1'" mat-raised-button color="primary">
+          Rezolvat
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>
+
+<mat-paginator [length]="totalItems" [pageSize]="pageSize" (page)="pageChange($event)">
+</mat-paginator>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { HomeDialogService } from '../services';
+import { RedirectService } from '@core/services/redirect.service';
+import { HomeDialogService } from '../../services';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +11,11 @@ import { HomeDialogService } from '../services';
 export class HomeComponent implements OnInit {
   public isAdmin: boolean = false;
   public username: string;
-  constructor(private dialogService: HomeDialogService, private matDialog: MatDialog) {}
+  constructor(
+    private dialogService: HomeDialogService,
+    private matDialog: MatDialog,
+    private redirectService: RedirectService,
+  ) {}
 
   public ngOnInit(): void {
     this.isAdmin = sessionStorage.getItem('role') === 'admin' ? true : false;
@@ -23,5 +28,9 @@ export class HomeComponent implements OnInit {
 
   public createTicket(): void {
     this.dialogService.openTicket(this.matDialog, [], false);
+  }
+
+  public goToTickets(): void {
+    this.redirectService.toTickets();
   }
 }

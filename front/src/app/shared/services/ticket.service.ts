@@ -14,35 +14,37 @@ export class TicketService {
     return this.http.post(`${this.url}`, bodyObject);
   }
 
-  // public getAdminAssigns(pageSize: any, pageNumber: any, status?: string): Observable<any> {
-  //   const params: HttpParams = new HttpParams()
-  //     .set('role', 'admin')
-  //     .set('pageSize', pageSize)
-  //     .set('pageNumber', pageNumber);
-  //   if (status) {
-  //     params.set('status', status);
-  //   }
+  public getAdminTickets(pageSize: any, pageNumber: any, status?: string): Observable<any> {
+    const params: HttpParams = new HttpParams()
+      .set('role', 'admin')
+      .set('pageSize', pageSize)
+      .set('pageNumber', pageNumber);
+    if (status !== undefined) {
+      params.set('status', status);
+    }
 
-  //   return this.http.get(this.url, { params });
-  // }
+    return this.http.get(this.url, { params });
+  }
 
-  // public getUserAssigns(
-  //   user: string,
-  //   pageSize: any,
-  //   pageNumber: any,
-  //   status?: string,
-  // ): Observable<any> {
-  //   const params: HttpParams = new HttpParams()
-  //     .set('role', 'user')
-  //     .set('user', user)
-  //     .set('pageNumber', pageNumber)
-  //     .set('pageSize', pageSize);
+  public getUserTicket(
+    user: string,
+    pageSize: any,
+    pageNumber: any,
+    status?: string,
+  ): Observable<any> {
+    let params: HttpParams = new HttpParams()
+      .set('role', 'user')
+      .set('user', user)
+      .set('pageNumber', pageNumber)
+      .set('pageSize', pageSize);
+    console.log(status);
 
-  //   if (status) {
-  //     params.set('status', status);
-  //   }
-  //   return this.http.get(this.url, { params });
-  // }
+    if (status !== undefined) {
+      params = params.set('status', status);
+      console.log('status good');
+    }
+    return this.http.get(this.url, { params });
+  }
 
   // public updateStatus(assignId: any, status: string): Observable<any> {
   //   return this.http.patch(this.url + assignId, { status });
