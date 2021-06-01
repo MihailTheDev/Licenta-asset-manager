@@ -7,5 +7,14 @@ Content-Type: application/json
   "user": "12345"
 }
 
+####
+
+PATCH  http://localhost:8000/ticket/60abed529f3ce28287672a6a
+Content-Type: application/json
+
+{
+  "status": "1"
+}
+
 ###
-GET http://localhost:8000/ticket?role=admin
+GET http://localhost:8000/ticket

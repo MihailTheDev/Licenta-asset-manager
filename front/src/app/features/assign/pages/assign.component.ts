@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
+import { ActivatedRoute } from '@angular/router';
 import { AssignService } from '@shared/services/assign.service';
 import { map, take } from 'rxjs/operators';
 
@@ -33,6 +34,8 @@ export class AssignComponent implements OnInit {
   ngOnInit() {
     this.isAdmin = sessionStorage.getItem('role') === 'admin' ? true : false;
     this.username = sessionStorage.getItem('username') as string;
+
+
     if (this.isAdmin) {
       this.displayedColumns.push('updateButton', 'goToDetailsButton');
     } else {

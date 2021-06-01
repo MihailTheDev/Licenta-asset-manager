@@ -21,4 +21,12 @@ export class AssetService {
   public createAsset(asset: any): Observable<any> {
     return this.http.post(this.url, asset);
   }
+
+  public updateAsset(asset: any, id: any): Observable<any> {
+    return this.http.put(this.url + '/' + id, asset);
+  }
+
+  public getAssetById(id: any): Observable<any> {
+    return this.http.get(this.url + '/' + id);
+  }
 }

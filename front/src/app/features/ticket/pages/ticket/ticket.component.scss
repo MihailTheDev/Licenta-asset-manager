@@ -1,11 +1,14 @@
 :host {
+  margin: 32px;
+  display: block;
+
   ::ng-deep {
     mat-card {
-      width: 260px !important;
+      width: 240px !important;
     }
     .card-content {
       display: block;
-      height: 160px;
+      height: 140px;
       overflow-y: auto;
     }
   }

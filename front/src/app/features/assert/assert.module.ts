@@ -14,6 +14,7 @@ import { ElectronicAssetsFormComponent, UsableAssetsFormComponent } from './comp
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { SharedModule } from 'app/shared/shared.module';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
 const MATERIAL_COMPONENTS: any[] = [
   MatInputModule,
@@ -24,6 +25,7 @@ const MATERIAL_COMPONENTS: any[] = [
   MatSlideToggleModule,
   MatDialogModule,
   MatButtonModule,
+  MatMomentDateModule,
 ];
 @NgModule({
   imports: [

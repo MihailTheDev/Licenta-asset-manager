@@ -1,4 +1,13 @@
-<h1>Creaza obiect</h1>
+<h1 *ngIf="stateOfPage === stateOfPageType.CREATE">Creaza obiect</h1>
+<h1 *ngIf="stateOfPage === stateOfPageType.VIEW">Vizualizeaza obiect</h1>
+<h1 *ngIf="stateOfPage === stateOfPageType.EDIT">Editeaza obiect</h1>
+
+<button *ngIf="stateOfPage === stateOfPageType.VIEW" (click)="enableFormEditing()" mat-button>
+  Activeaza editarea
+</button>
+<button *ngIf="stateOfPage === stateOfPageType.EDIT" (click)="disableFormEditing()" mat-button>
+  Activeaza vizualizarea
+</button>
 
 <div class="form-container" [formGroup]="form">
   <div class="form-row name-container">
@@ -26,7 +35,7 @@
 
     <mat-form-field appearance="fill">
       <mat-label>Data de fabricare</mat-label>
-      <input formControlName="date" matInput [matDatepicker]="datepicker" />
+      <input formControlName="yearOfProduct" matInput [matDatepicker]="datepicker" />
       <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
       <mat-datepicker #datepicker disabled="false">
         <mat-datepicker-actions>
@@ -47,7 +56,11 @@
   </div>
 
   <div class="form-row serial-number-container">
-    <mat-slide-toggle [formControl]="sliderSerialNumberControl" color="primary">
+    <mat-slide-toggle
+      [disabled]="stateOfPage === stateOfPageType.VIEW"
+      [formControl]="sliderSerialNumberControl"
+      color="primary"
+    >
       Numar identificare
     </mat-slide-toggle>
 
@@ -86,9 +99,23 @@
   <!-- TODO: remove resizable button on textarea -->
 
   <div class="form-row button-container flex-space-around">
-    <button mat-button color="primary" (click)="openParentPopUp()">Alege obiect parinte</button>
+    <button
+      mat-button
+      color="primary"
+      [disabled]="stateOfPage === stateOfPageType.VIEW"
+      (click)="openParentPopUp()"
+    >
+      Alege obiect parinte
+    </button>
 
-    <button mat-button color="primary" (click)="openChildPopUp()">Alege sub-obiecte</button>
+    <button
+      mat-button
+      color="primary"
+      [disabled]="stateOfPage === stateOfPageType.VIEW"
+      (click)="openChildPopUp()"
+    >
+      Alege sub-obiecte
+    </button>
   </div>
 
   <div class="form-row table-container" *ngIf="parent.length > 0">
@@ -105,16 +132,15 @@
     <mat-label class="red-text"> Nu poti avea acelasi obiect ca parinte si copil </mat-label>
   </div>
 
-  <div class="form-row">
-
-  </div>
-
+  <div class="form-row"></div>
+  <!--
   <app-electronic-assets-form
     *ngIf="groupValue === GroupIdTypes.electronic"
   ></app-electronic-assets-form>
-  <app-usable-assets-form *ngIf="groupValue === GroupIdTypes.usable"></app-usable-assets-form>
+  <app-usable-assets-form *ngIf="groupValue === GroupIdTypes.usable"></app-usable-assets-form> -->
 </div>
 <button
+  *ngIf="stateOfPage === stateOfPageType.CREATE"
   mat-raised-button
   (click)="onSubmit()"
   color="primary"
@@ -122,4 +148,22 @@
 >
   Salveaza
 </button>
-<button mat-raised-button (click)="onReset()" color="warn">Reseteaza campurile</button>
+
+<button
+  *ngIf="stateOfPage === stateOfPageType.EDIT"
+  mat-raised-button
+  (click)="onUpdate()"
+  color="primary"
+  [disabled]="form.invalid && !linkedAssetsError"
+>
+  Actualizeaza
+</button>
+
+<button
+  *ngIf="stateOfPage === stateOfPageType.CREATE"
+  mat-raised-button
+  (click)="onReset()"
+  color="warn"
+>
+  Reseteaza campurile
+</button>

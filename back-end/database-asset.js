@@ -77,6 +77,9 @@ exports.findOne = (id) => {
     });
   }
 };
+const getLinksByAssetId = (id) => {
+  return LinkModel.find({ assetId: id.toString() }).exec();
+};
 
 exports.getLinksByAssetId = (id) => {
   return LinkModel.find({ assetId: id.toString() }).exec();
@@ -85,12 +88,10 @@ exports.getLinksByAssetId = (id) => {
 exports.findWithPaginator = ({ pageSize, pageNumber }) => {
   pageSize = parseInt(pageSize);
   pageNumber = parseInt(pageNumber);
-  console.log(pageSize, pageNumber);
   return AssetModel.find()
     .skip(pageSize * pageNumber - pageSize)
     .limit(pageSize)
     .exec();
-  // TODO: check for limit returns
 };
 
 exports.findAll = () => {
@@ -101,10 +102,26 @@ exports.getNumberOfAssets = () => {
   return AssetModel.countDocuments({}).exec();
 };
 
+exports.update = (asset, id) => {
+  return getLinksByAssetId(id)
+    .then((links) => {
+      return deleteLinks(links);
+    })
+    .then((_) => saveLinks(asset, id))
+    .then((_) => AssetModel.updateOne({ _id: id }, asset).exec());
+};
+
+function deleteLinks(links) {
+  const promises = [];
+  links?.forEach((child) => promises.push(LinkModel.findByIdAndDelete(child).exec()));
+
+  return Promise.all(promises);
+}
+
 function saveLinks({ parent, children }, id) {
   const links = [];
   links.push(new LinkModel({ assetId: id, linkedAssetId: parent, type: LinkType.PARENT }));
-  children.forEach((child) => {
+  children?.forEach((child) => {
     links.push(new LinkModel({ assetId: id, linkedAssetId: child, type: LinkType.CHILD }));
   });
 

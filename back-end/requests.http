@@ -13,7 +13,28 @@ GET http://localhost:8000/login?username=test&password=test
 GET http://localhost:8000/asset?pageSize=4&pageNumber=1
 
 #######
-GET http://localhost:8000/asset/60856401f3e651d01d9c2927
+GET http://localhost:8000/asset/60b6490a7e11ce80490d111c
+
+######
+PUT http://localhost:8000/asset/60b6490a7e11ce80490d111c
+Content-Type: application/json
+
+{
+  "_id": "60b6490a7e11ce80490d111c",
+  "name": "Unitate Beco",
+  "size": "Extra large",
+  "yearOfProduct": "2021-06-06T21:00:00.000Z",
+  "description": "",
+  "observation": "",
+  "group": "usable",
+  "parent": "6092fcbd806f7d24d1a17d04",
+  "children": [
+    "6092b0cc8d5daa97ff1ffe2a",
+    "6092b0cf8d5daa97ff1ffe2f",
+    "6092b7db8d5daa97ff1ffe40"
+  ]
+}
+
 
 #######
 GET http://localhost:8000/link/60856401f3e651d01d9c2927
@@ -45,7 +66,7 @@ POST http://localhost:8000/asset
 Content-Type: application/json
 
 {
-  "children": [1,2,3],
+  "children": ["6092b7de8d5daa97ff1ffe3e"],
   "description": "veri long long description",
   "group": "group",
   "name": "Asset19",

@@ -42,9 +42,16 @@ export class LayoutComponent implements OnInit {
     },
     {
       id: '4',
-      iconLabel: 'assignment_late',
+      iconLabel: 'assignment_returned',
       buttonLabel: 'Requesturi',
       redirectTo: '/assign',
+      forAdminOnly: false,
+    },
+    {
+      id: '5',
+      iconLabel: 'assignment_late',
+      buttonLabel: 'Tichete',
+      redirectTo: '/ticket',
       forAdminOnly: false,
     },
   ];

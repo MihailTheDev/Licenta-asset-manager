@@ -7,23 +7,27 @@ import { Router } from '@angular/router';
 export class RedirectService {
   constructor(private router: Router) {}
 
-  public toLogin() {
+  public toLogin(): void {
     this.router.navigate(['/auth/login']);
   }
 
-  public toRegister() {
+  public toRegister(): void {
     this.router.navigate(['/auth/register']);
   }
 
-  public toHome() {
+  public toHome(): void {
     this.router.navigate(['/home']);
   }
 
-  public toCreate() {
+  public toCreate(): void {
     this.router.navigate(['/create']);
   }
 
-  public toTickets() {
+  public toTickets(): void {
     this.router.navigate(['/ticket']);
+  }
+
+  public toEditAsset(id: any): void {
+    this.router.navigate(['/edit/' + id]);
   }
 }

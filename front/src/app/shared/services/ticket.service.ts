@@ -15,12 +15,12 @@ export class TicketService {
   }
 
   public getAdminTickets(pageSize: any, pageNumber: any, status?: string): Observable<any> {
-    const params: HttpParams = new HttpParams()
+    let params: HttpParams = new HttpParams()
       .set('role', 'admin')
       .set('pageSize', pageSize)
       .set('pageNumber', pageNumber);
     if (status !== undefined) {
-      params.set('status', status);
+      params = params.set('status', status);
     }
 
     return this.http.get(this.url, { params });
@@ -37,16 +37,14 @@ export class TicketService {
       .set('user', user)
       .set('pageNumber', pageNumber)
       .set('pageSize', pageSize);
-    console.log(status);
 
     if (status !== undefined) {
       params = params.set('status', status);
-      console.log('status good');
     }
     return this.http.get(this.url, { params });
   }
 
-  // public updateStatus(assignId: any, status: string): Observable<any> {
-  //   return this.http.patch(this.url + assignId, { status });
-  // }
+  public updateStatus(ticketId: any, status: string): Observable<any> {
+    return this.http.patch(this.url + '/' + ticketId, { status });
+  }
 }

@@ -3,13 +3,17 @@
 <mat-slide-toggle (toggleChange)="onSliderChange($event)">
   Arata doar cele nerezolvate
 </mat-slide-toggle>
-<mat-grid-list cols="4">
+<mat-grid-list cols="4" rowHeight="380px">
   <mat-grid-tile *ngFor="let ticket of tickets">
     <mat-card class="example-card">
       <mat-card-header>
         <mat-card-title>{{ ticket.name }}</mat-card-title>
         <mat-card-subtitle>
-          Status: {{ ticket.status === '0' ? 'Creat' : 'Rezolvat' }}
+          <mat-chip-list>
+            <mat-chip [color]="ticket.status === '0' ? 'primary' : 'accent'" selected>
+              Status: {{ ticket.status === '0' ? 'Creat' : 'Rezolvat' }}
+            </mat-chip>
+          </mat-chip-list>
         </mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
@@ -17,9 +21,22 @@
           {{ ticket.description }}
         </div>
       </mat-card-content>
-      <mat-card-actions>
-        <button [disabled]="ticket.status === '1'" mat-raised-button color="primary">
-          Rezolvat
+      <mat-card-actions *ngIf="isAdmin">
+        <button
+          *ngIf="ticket.status === '0'"
+          mat-button
+          color="primary"
+          (click)="onTicketUpdate(ticket, '1')"
+        >
+          Rezolva
+        </button>
+        <button
+          *ngIf="ticket.status === '1'"
+          mat-button
+          color="primary"
+          (click)="onTicketUpdate(ticket, '0')"
+        >
+          Redechide tichet
         </button>
       </mat-card-actions>
     </mat-card>

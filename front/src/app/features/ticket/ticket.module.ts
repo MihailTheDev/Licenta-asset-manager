@@ -7,6 +7,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { TicketComponent } from './pages';
 import { TicketRoutingModule } from './ticket-routing.module';
+import { MatChipsModule } from '@angular/material/chips';
 
 const MATERIAL_MODULES = [
   MatGridListModule,
@@ -14,6 +15,7 @@ const MATERIAL_MODULES = [
   MatPaginatorModule,
   MatButtonModule,
   MatCardModule,
+  MatChipsModule,
 ];
 
 @NgModule({

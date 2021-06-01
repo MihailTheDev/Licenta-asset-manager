@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { TicketService } from '@shared/services';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-ticket',
@@ -10,7 +11,7 @@ import { TicketService } from '@shared/services';
 export class TicketComponent implements OnInit {
   public isAdmin: boolean;
   public username: string;
-  public pageSize = 20;
+  public pageSize = 8;
   public pageNumber = 1;
   public totalItems = 0;
   public filterByStatus = false;
@@ -30,7 +31,18 @@ export class TicketComponent implements OnInit {
 
   public onSliderChange($event: any): void {
     this.filterByStatus = !this.filterByStatus;
+    console.log(this.filterByStatus);
+
     this.populateList();
+  }
+
+  public onTicketUpdate(ticket: any, statusValue: any): void {
+    this.ticketService
+      .updateStatus(ticket._id, statusValue)
+      .pipe(take(1))
+      .subscribe((_) => {
+        this.populateList();
+      });
   }
 
   private populateList(): void {

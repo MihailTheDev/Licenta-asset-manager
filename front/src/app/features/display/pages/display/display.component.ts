@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
+import { RedirectService } from '@core/services/redirect.service';
 import { AssetService } from '@shared/services';
 import { take } from 'rxjs/operators';
 
@@ -21,7 +22,11 @@ export class DisplayComponent implements OnInit {
     'deleteButton',
   ];
 
-  constructor(private assetService: AssetService, private cd: ChangeDetectorRef) {}
+  constructor(
+    private assetService: AssetService,
+    private cd: ChangeDetectorRef,
+    private redirectService: RedirectService,
+  ) {}
 
   public ngOnInit(): void {
     this.assetService
@@ -34,8 +39,7 @@ export class DisplayComponent implements OnInit {
   }
 
   public onDetailsClick(asset: any): void {
-    console.log('asset click');
-    console.log(asset);
+    this.redirectService.toEditAsset(asset._id);
   }
 
   public onPageIndexChange(paginator: PageEvent): void {

@@ -45,7 +45,6 @@ exports.register = (req, res) => {
 
 exports.createAsset = (req, res) => {
   const asset = req.body;
-  console.log(asset);
   dbAsset
     .createAsset(asset)
     .then((result) => {
@@ -55,6 +54,15 @@ exports.createAsset = (req, res) => {
       console.log(err);
       res.status(400).send(err);
     });
+};
+
+exports.updateAsset = (req, res) => {
+  const id = req.params.id;
+  const asset = req.body;
+
+  dbAsset.update(asset, id).then((asset) => {
+    res.send(asset);
+  });
 };
 
 exports.getAsset = (req, res) => {
@@ -74,7 +82,9 @@ exports.getAsset = (req, res) => {
         return acc;
       });
       const children = links
-        .filter((link) => link.type === LinkType.CHILD)
+        .filter((link) => {
+          return link.type === LinkType.CHILD;
+        })
         .map((link) => link.linkedAssetId);
       res.send({ ...asset, parent: parentId, children });
     })

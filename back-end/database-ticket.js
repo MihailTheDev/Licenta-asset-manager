@@ -22,7 +22,6 @@ var ticketSchema = new mongoose.Schema({
   date: '',
   assetId: '',
 });
-
 let TicketModel = mongoose.model('ticket', ticketSchema);
 exports.find = (filter, pageSize = 5, pageNumber = 1) => {
   return TicketModel.find(filter)
@@ -32,7 +31,7 @@ exports.find = (filter, pageSize = 5, pageNumber = 1) => {
 };
 
 exports.findFilteredCount = (filter) => {
-  return TicketModel.countDocuments().exec();
+  return TicketModel.countDocuments(filter).exec();
 };
 
 exports.create = (ticket) => {
