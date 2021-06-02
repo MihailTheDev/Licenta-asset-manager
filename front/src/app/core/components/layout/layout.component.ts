@@ -31,7 +31,7 @@ export class LayoutComponent implements OnInit {
       iconLabel: 'add',
       buttonLabel: 'Creeaza',
       redirectTo: '/create',
-      forAdminOnly: false,
+      forAdminOnly: true,
     },
     {
       id: '3',

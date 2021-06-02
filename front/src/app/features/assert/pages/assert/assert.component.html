@@ -172,3 +172,13 @@
 >
   Reseteaza campurile
 </button>
+
+<button
+  *ngIf="(stateOfPage === stateOfPageType.EDIT || stateOfPage === stateOfPageType.VIEW) && isAdmin"
+  [disabled]="form.invalid && !linkedAssetsError"
+  (click)="goToQr()"
+  mat-raised-button
+  color="primary"
+>
+  Genereaza QR
+</button>

@@ -2,7 +2,7 @@
 
 <h3>Linkuri rapide:</h3>
 <div class="fast-links-container">
-  <button mat-raised-button color="primary">Vezi obiecte</button>
+  <button mat-raised-button color="primary" (click)="goToAssigns()">Vezi obiecte</button>
   <button mat-raised-button color="primary" (click)="createTicket()">Creeaza tichet</button>
   <button mat-raised-button color="primary" (click)="createRequest()">Cere obiect</button>
 </div>
@@ -46,7 +46,7 @@
       </p>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-button>Vezi obiecte</button>
+      <button mat-button (click)="goToAssigns()">Vezi obiecte</button>
     </mat-card-actions>
   </mat-card>
 
@@ -66,7 +66,7 @@
       </p>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-button>Vezi cereri</button>
+      <button mat-button (click)="goToAssigns()">Vezi cereri</button>
     </mat-card-actions>
   </mat-card>
 </div>

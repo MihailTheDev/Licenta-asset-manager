@@ -27,7 +27,15 @@ export class RedirectService {
     this.router.navigate(['/ticket']);
   }
 
+  public toAssigns(): void {
+    this.router.navigate(['/assign']);
+  }
+
   public toEditAsset(id: any): void {
     this.router.navigate(['/edit/' + id]);
+  }
+
+  public toAssetQr(id: any): void {
+    this.router.navigate(['/qr/' + id]);
   }
 }

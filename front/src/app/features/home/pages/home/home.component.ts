@@ -40,9 +40,12 @@ export class HomeComponent implements OnInit {
 
       this.objectsCount = result.count;
       this.assignDate = moment(result.assignDate).format('DD MM YYYY');
-      // this.assetService.getAssetById(result.assign.assetId).subscribe((asset) => {
-      //   this.objectName = asset;
-      // });
+      if (!result?.assign.assetId) {
+        return;
+      }
+      this.assetService.getAssetById(result.assign.assetId).subscribe((asset) => {
+        this.objectName = asset.name;
+      });
     });
   }
 
@@ -56,5 +59,9 @@ export class HomeComponent implements OnInit {
 
   public goToTickets(): void {
     this.redirectService.toTickets();
+  }
+
+  public goToAssigns(): void {
+    this.redirectService.toAssigns();
   }
 }

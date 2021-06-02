@@ -8,6 +8,7 @@ import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { BaseComponent } from '@core/components';
+import { RedirectService } from '@core/services/redirect.service';
 import { AssetService } from '@shared/services';
 import * as moment from 'moment';
 import { of } from 'rxjs';
@@ -69,13 +70,13 @@ export class AssertComponent extends BaseComponent implements OnInit {
     private dialog: MatDialog,
     private assetService: AssetService,
     private route: ActivatedRoute,
+    private redirectService: RedirectService,
   ) {
     super();
   }
 
   public ngOnInit(): void {
     this.isAdmin = sessionStorage.getItem('role') === 'admin' ? true : false;
-    console.log(this.isAdmin);
 
     this.serialNumberSliderChange();
 
@@ -87,6 +88,10 @@ export class AssertComponent extends BaseComponent implements OnInit {
       this.disableFormEditing();
       this.populateForm();
     });
+  }
+
+  public goToQr(): void {
+    this.redirectService.toAssetQr(this.assetId);
   }
 
   private populateForm(): void {
