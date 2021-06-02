@@ -1,9 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var controller = require('./controller');
-router.get('/', (req, res) => {
-  res.send('lololo');
-});
+var controllerStatistics = require('./controller-statistics');
 
 router.get('/login', controller.login);
 
@@ -30,5 +28,11 @@ router.post('/ticket', controller.createTicket);
 router.patch('/ticket/:id', controller.updateTicket);
 
 router.get('/ticket', controller.getTickets);
+
+router.get('/statistics/ticket', controllerStatistics.getTicket);
+
+router.get('/statistics/assign', controllerStatistics.getAssign);
+
+router.get('/statistics/object', controllerStatistics.getObjects);
 
 module.exports = router;

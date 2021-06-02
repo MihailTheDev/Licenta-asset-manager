@@ -75,20 +75,30 @@ exports.getAsset = (req, res) => {
       return dbAsset.getLinksByAssetId(id);
     })
     .then((links) => {
-      const { linkedAssetId: parentId } = links.reduce((acc, link) => {
+      console.log(links);
+      if (links.length === 0) {
+        res.send({ ...asset, parent: parentId, children: [] });
+        return;
+      }
+      const { linkedAssetId: parentId } = links?.reduce((acc, link) => {
         if (link.type === LinkType.PARENT) {
           return link;
         }
         return acc;
       });
-      const children = links
-        .filter((link) => {
+      let children = links
+        ?.filter((link) => {
           return link.type === LinkType.CHILD;
         })
         .map((link) => link.linkedAssetId);
+
       res.send({ ...asset, parent: parentId, children });
     })
     .catch((err) => {
+      if (asset) {
+        res.send({ ...asset, children: [] });
+        return;
+      }
       res.status(404).send(err);
     });
 };
@@ -114,8 +124,9 @@ exports.getAssets = (req, res) => {
   const paginator = ({ pageSize, pageNumber } = req.query);
 
   Promise.all([dbAsset.findWithPaginator(paginator), dbAsset.getNumberOfAssets()]).then(
-    (result) => {
-      res.send({ assets: result[0], count: result[1] });
+    ([assets, count]) => {
+      console.log(assets);
+      res.send({ assets: assets, count });
     },
   );
   // dbAsset.findWithPaginator(paginator).then((assets) => {
@@ -133,6 +144,8 @@ exports.getAssigns = (req, res) => {
   if (status) {
     filter.status = status;
   }
+
+  console.log(filter);
   Promise.all([
     dbAssign.find(filter, pageSize, pageNumber),
     dbAsset.findAll(),
@@ -142,7 +155,6 @@ exports.getAssigns = (req, res) => {
       const assigns = result[0];
       const assets = result[1];
       const count = result[2];
-
       const assetsAssigns = [];
       assigns.forEach((assign) => {
         const asset = findAssetById(assets, assign.assetId);
@@ -235,10 +247,5 @@ exports.getTickets = (req, res) => {
 };
 
 function findAssetById(assets, id) {
-  return assets.reduce((acc, asset) => {
-    if (asset._id === id) {
-      return asset;
-    }
-    return acc;
-  });
+  return assets.filter((asset) => asset._id.toString() === id.toString())[0];
 }

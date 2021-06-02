@@ -2,7 +2,11 @@
 <h1 *ngIf="stateOfPage === stateOfPageType.VIEW">Vizualizeaza obiect</h1>
 <h1 *ngIf="stateOfPage === stateOfPageType.EDIT">Editeaza obiect</h1>
 
-<button *ngIf="stateOfPage === stateOfPageType.VIEW" (click)="enableFormEditing()" mat-button>
+<button
+  *ngIf="stateOfPage === stateOfPageType.VIEW && isAdmin"
+  (click)="enableFormEditing()"
+  mat-button
+>
   Activeaza editarea
 </button>
 <button *ngIf="stateOfPage === stateOfPageType.EDIT" (click)="disableFormEditing()" mat-button>
@@ -141,28 +145,29 @@
 </div>
 <button
   *ngIf="stateOfPage === stateOfPageType.CREATE"
-  mat-raised-button
-  (click)="onSubmit()"
-  color="primary"
   [disabled]="form.invalid && !linkedAssetsError"
+  (click)="onSubmit()"
+  mat-raised-button
+  color="primary"
 >
   Salveaza
 </button>
 
 <button
   *ngIf="stateOfPage === stateOfPageType.EDIT"
-  mat-raised-button
-  (click)="onUpdate()"
-  color="primary"
   [disabled]="form.invalid && !linkedAssetsError"
+  (click)="onUpdate()"
+  mat-raised-button
+  color="primary"
 >
   Actualizeaza
 </button>
 
 <button
   *ngIf="stateOfPage === stateOfPageType.CREATE"
-  mat-raised-button
   (click)="onReset()"
+  s
+  mat-raised-button
   color="warn"
 >
   Reseteaza campurile

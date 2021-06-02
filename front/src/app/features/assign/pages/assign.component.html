@@ -1,4 +1,4 @@
-<h1>Tichete</h1>
+<h1>Cereri</h1>
 <mat-select (selectionChange)="onSelectChange($event)">
   <mat-option value="created">Create</mat-option>
   <mat-option value="assigned">Acceptate</mat-option>
@@ -13,6 +13,7 @@
     [pageSize]="pageSize"
     [totalItems]="countTotalElements"
     (elementUpdate)="onElementUpdate($event)"
+    (detailsClick)="onDetailsClick($event)"
     (paginatorChange)="onPaginatorChange($event)"
   >
   </app-table>

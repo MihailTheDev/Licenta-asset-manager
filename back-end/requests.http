@@ -13,14 +13,14 @@ GET http://localhost:8000/login?username=test&password=test
 GET http://localhost:8000/asset?pageSize=4&pageNumber=1
 
 #######
-GET http://localhost:8000/asset/60b6490a7e11ce80490d111c
+GET http://localhost:8000/asset/6092b7d78d5daa97ff1ffe34
 
 ######
-PUT http://localhost:8000/asset/60b6490a7e11ce80490d111c
+PUT http://localhost:8000/asset/6092b0cc8d5daa97ff1ffe2a
 Content-Type: application/json
 
 {
-  "_id": "60b6490a7e11ce80490d111c",
+  "_id": "6092b7d78d5daa97ff1ffe34",
   "name": "Unitate Beco",
   "size": "Extra large",
   "yearOfProduct": "2021-06-06T21:00:00.000Z",

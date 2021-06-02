@@ -45,6 +45,6 @@ export class AssignService {
   }
 
   public updateStatus(assignId: any, status: string): Observable<any> {
-    return this.http.patch(this.url + assignId, { status });
+    return this.http.patch(this.url + '/' + assignId, { status });
   }
 }

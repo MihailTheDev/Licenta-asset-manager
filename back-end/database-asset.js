@@ -121,6 +121,10 @@ function deleteLinks(links) {
 function saveLinks({ parent, children }, id) {
   const links = [];
   links.push(new LinkModel({ assetId: id, linkedAssetId: parent, type: LinkType.PARENT }));
+
+  if (children.length === 0) {
+    return LinkModel.create(links);
+  }
   children?.forEach((child) => {
     links.push(new LinkModel({ assetId: id, linkedAssetId: child, type: LinkType.CHILD }));
   });

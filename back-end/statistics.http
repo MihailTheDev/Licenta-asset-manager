@@ -1,0 +1,9 @@
+GET http://localhost:8000/statistics/ticket?user=test
+
+###
+
+GET http://localhost:8000/statistics/assign?user=test
+
+###
+
+GET http://localhost:8000/statistics/object?user=test

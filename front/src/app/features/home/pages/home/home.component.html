@@ -15,9 +15,15 @@
     </mat-card-header>
 
     <mat-card-content>
-      <p>Tichete deschise:</p>
-      <p>Ultimul tichet deschis:</p>
-      <p>Tichete rezolvate:</p>
+      <p>
+        Tichete rezolvate: <strong> {{ (tickets$ | async)?.closed }}</strong>
+      </p>
+      <p>
+        Tichete deschise: <strong> {{ (tickets$ | async)?.opened }}</strong>
+      </p>
+      <p>
+        Numar total: <strong> {{ (tickets$ | async)?.total }}</strong>
+      </p>
     </mat-card-content>
     <mat-card-actions>
       <button (click)="goToTickets()" mat-button>Vezi tichete</button>
@@ -29,9 +35,15 @@
       <mat-card-title>Obiectele mele</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <p>Numar obiecte:</p>
-      <p>Ultimul obiect asignat:</p>
-      <p>Obiecte returnate</p>
+      <p>
+        Numar obiecte: <strong> {{ objectsCount }}</strong>
+      </p>
+      <p>
+        Ultimul obiect asignat: <strong> {{ objectName }}</strong>
+      </p>
+      <p>
+        Data asignarii: <strong> {{ assignDate }} </strong>
+      </p>
     </mat-card-content>
     <mat-card-actions>
       <button mat-button>Vezi obiecte</button>
@@ -43,9 +55,15 @@
       <mat-card-title>Cererile mele</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <p>Numar de cereri deschise:</p>
-      <p>Cereri acceptate:</p>
-      <p>Cereri refuzate:</p>
+      <p>
+        Cereri deschise: <strong>{{ (assigns$ | async)?.created }}</strong>
+      </p>
+      <p>
+        Cereri acceptate: <strong>{{ (assigns$ | async)?.accepted }}</strong>
+      </p>
+      <p>
+        Cereri finalizate: <strong>{{ (assigns$ | async)?.returned }}</strong>
+      </p>
     </mat-card-content>
     <mat-card-actions>
       <button mat-button>Vezi cereri</button>

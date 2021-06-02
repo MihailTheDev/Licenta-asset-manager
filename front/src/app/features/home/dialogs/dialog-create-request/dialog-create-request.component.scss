@@ -3,5 +3,11 @@
     mat-step-header {
       pointer-events: none !important;
     }
+
+    .description-panel {
+      height: 45px;
+      overflow-y: auto;
+      display: block;
+    }
   }
 }

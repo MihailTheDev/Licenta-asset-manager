@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BaseComponent } from '@core/components';
 import { AssetService } from '@shared/services';
 import * as moment from 'moment';
+import { of } from 'rxjs';
 import { distinctUntilChanged, switchMap, take } from 'rxjs/operators';
 import { GROUP_ID_TYPES, OPTIONS } from '../../constants';
 import { CreateFormGroup } from '../../forms/assert.form';
@@ -41,6 +42,7 @@ export class AssertComponent extends BaseComponent implements OnInit {
   public linkedAssetsError = false;
   public stateOfPage: StateOfPage = StateOfPage.CREATE;
   public assetId: string;
+  public isAdmin: boolean;
 
   public get stateOfPageType(): typeof StateOfPage {
     return StateOfPage;
@@ -72,6 +74,9 @@ export class AssertComponent extends BaseComponent implements OnInit {
   }
 
   public ngOnInit(): void {
+    this.isAdmin = sessionStorage.getItem('role') === 'admin' ? true : false;
+    console.log(this.isAdmin);
+
     this.serialNumberSliderChange();
 
     this.route.params.subscribe((params) => {
@@ -103,12 +108,18 @@ export class AssertComponent extends BaseComponent implements OnInit {
                 this.children.push(response);
               });
           });
-
+          if (!response.parent) {
+            return of(undefined);
+          }
           return this.assetService.getAssetById(response.parent);
         }),
       )
       .subscribe((response) => {
-        this.parent = [response];
+        if (!response) {
+          this.parent = [];
+        } else {
+          this.parent = [response];
+        }
         this.form.parent?.setValue(response);
       });
   }

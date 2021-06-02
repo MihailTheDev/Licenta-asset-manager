@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute } from '@angular/router';
+import { RedirectService } from '@core/services/redirect.service';
 import { AssignService } from '@shared/services/assign.service';
 import { map, take } from 'rxjs/operators';
 
@@ -29,12 +30,11 @@ export class AssignComponent implements OnInit {
   ];
   public status: string | undefined;
 
-  constructor(private assignService: AssignService) {}
+  constructor(private assignService: AssignService, private redirectService: RedirectService) {}
 
   ngOnInit() {
     this.isAdmin = sessionStorage.getItem('role') === 'admin' ? true : false;
     this.username = sessionStorage.getItem('username') as string;
-
 
     if (this.isAdmin) {
       this.displayedColumns.push('updateButton', 'goToDetailsButton');
@@ -69,6 +69,10 @@ export class AssignComponent implements OnInit {
   public onPaginatorChange(paginator: PageEvent): void {
     this.pageNumber = paginator.pageIndex + 1;
     this.populateTable();
+  }
+
+  public onDetailsClick(event: any): void {
+    this.redirectService.toEditAsset(event.assetId);
   }
 
   private populateTable(): void {

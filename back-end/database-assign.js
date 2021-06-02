@@ -28,8 +28,6 @@ var assignSchema = new mongoose.Schema({
 let AssignModel = mongoose.model('assign', assignSchema);
 // TODO: check find.. not working
 exports.find = (filter, pageSize = 5, pageNumber = 1) => {
-  console.log(pageSize, pageNumber);
-  console.log(filter);
   return AssignModel.find(filter)
     .skip(pageSize * pageNumber - pageSize)
     .limit(parseInt(pageSize))
@@ -47,4 +45,12 @@ exports.create = (assign) => {
 
 exports.update = (id, props) => {
   return AssignModel.updateOne({ _id: id }, props);
+};
+
+exports.findFilteredCount = (filter) => {
+  return AssignModel.countDocuments(filter).exec();
+};
+
+exports.getLastAssign = (filter) => {
+  return AssignModel.findOne(filter, {}, { sort: { assignedDate: -1 } }).exec();
 };
