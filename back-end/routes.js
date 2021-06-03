@@ -2,6 +2,9 @@ var express = require('express');
 var router = express.Router();
 var controller = require('./controller');
 var controllerStatistics = require('./controller-statistics');
+router.get('/', (req, res) => {
+  res.send('lalala');
+});
 
 router.get('/login', controller.login);
 

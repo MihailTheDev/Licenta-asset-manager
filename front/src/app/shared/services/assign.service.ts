@@ -1,12 +1,13 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AssignService {
-  private url = 'http://localhost:8000/assign';
+  private url = environment.API_URL + '/assign';
 
   constructor(private http: HttpClient) {}
 

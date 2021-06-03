@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'environments/environment';
 import { Observable, of } from 'rxjs';
 import { RegisterModel } from '../models';
 
@@ -7,7 +8,7 @@ import { RegisterModel } from '../models';
   providedIn: 'root',
 })
 export class AuthService {
-  private url = 'http://localhost:8000';
+  private url = environment.API_URL;
 
   constructor(private http: HttpClient) {}
 

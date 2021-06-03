@@ -14,6 +14,10 @@ const routes: Routes = [
     redirectTo: 'auth',
   },
   {
+    path: 'qr',
+    loadChildren: () => import('./features/qr/qr.module').then((m) => m.QrModule),
+  },
+  {
     path: '',
     component: LayoutComponent,
     canActivate: [AuthGuard],
@@ -44,10 +48,6 @@ const routes: Routes = [
       {
         path: 'ticket',
         loadChildren: () => import('./features/ticket/ticket.module').then((m) => m.TicketModule),
-      },
-      {
-        path: 'qr',
-        loadChildren: () => import('./features/qr/qr.module').then((m) => m.QrModule),
       },
     ],
   },

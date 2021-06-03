@@ -7,16 +7,13 @@ import { AssetService } from '@shared/services';
   templateUrl: './view-asset.component.html',
   styleUrls: ['./view-asset.component.scss'],
 })
-export class ViewAssetComponent implements OnInit {
-  constructor(private route: ActivatedRoute, private assetService: AssetService) {}
-
-  ngOnInit() {
-    this.route.params.subscribe((params) => {
-      if (!params['id']) {
-        return;
-      }
-
-
-    });
-  }
+export class ViewAssetComponent {
+  // constructor(private route: ActivatedRoute, private assetService: AssetService) {}
+  // ngOnInit() {
+  //   this.route.params.subscribe((params) => {
+  //     if (!params['id']) {
+  //       return;
+  //     }
+  //   });
+  // }
 }
