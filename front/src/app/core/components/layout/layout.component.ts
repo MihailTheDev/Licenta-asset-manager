@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RedirectService } from '@core/services/redirect.service';
+import { SavedLinkService } from '@shared/services';
 
 interface MenuItem {
   id: string;
@@ -55,10 +56,19 @@ export class LayoutComponent implements OnInit {
       forAdminOnly: false,
     },
   ];
-  constructor(private redirect: RedirectService, private router: Router) {}
+
+  public links: any[];
+
+  constructor(
+    private redirect: RedirectService,
+    private router: Router,
+    private savedLinksService: SavedLinkService,
+  ) {}
 
   ngOnInit() {
-    console.log(this.isAdmin);
+    this.savedLinksService.getLinks().subscribe((res) => {
+      this.links = res.savedLink ?? [];
+    });
   }
 
   public toggle(): void {
@@ -72,5 +82,9 @@ export class LayoutComponent implements OnInit {
   public logOut(): void {
     sessionStorage.clear();
     this.redirect.toLogin();
+  }
+
+  public redirectToView(savedLink: any): void {
+    return this.redirect.toAssetQrView(savedLink.assetId);
   }
 }

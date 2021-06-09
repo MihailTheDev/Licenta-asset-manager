@@ -246,6 +246,27 @@ exports.getTickets = (req, res) => {
     });
 };
 
+exports.createSavedLink = (req, res) => {
+  const savedLink = req.body;
+  savedLink.createdAtDate = Date.now();
+  dbSavedLink
+    .createSavedLink(savedLink)
+    .then((result) => res.send(result))
+    .catch((err) => res.status(400).send(err));
+};
+
+exports.getSavedLinks = (req, res) => {
+  const splitUrl = req.url.split('/');
+  const user = splitUrl[splitUrl.length - 1];
+  dbSavedLink.getSavedLinks(user).then((result) => {
+    if (!result) {
+      res.status(404).send('not found');
+    } else {
+      res.send({ savedLink: result });
+    }
+  });
+};
+
 function findAssetById(assets, id) {
   return assets.filter((asset) => asset._id.toString() === id.toString())[0];
 }

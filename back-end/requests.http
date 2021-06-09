@@ -13,7 +13,8 @@ GET http://localhost:8000/login?username=test&password=test
 GET http://localhost:8000/asset?pageSize=4&pageNumber=1
 
 #######
-GET http://localhost:8000/asset/6092b7d78d5daa97ff1ffe34
+GET 192.168.100.3:8000/asset/6092b7d78d5daa97ff1ffe34
+# GET http://localhost:8000/asset/6092b7d78d5daa97ff1ffe34
 
 ######
 PUT http://localhost:8000/asset/6092b0cc8d5daa97ff1ffe2a

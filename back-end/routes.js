@@ -38,4 +38,8 @@ router.get('/statistics/assign', controllerStatistics.getAssign);
 
 router.get('/statistics/object', controllerStatistics.getObjects);
 
+router.post('/saved-link', controller.createSavedLink);
+
+router.get('/saved-link/:username', controller.getSavedLinks);
+
 module.exports = router;

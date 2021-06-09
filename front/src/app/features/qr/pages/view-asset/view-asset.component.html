@@ -1,3 +1,14 @@
-<p>
-  view-asset works!
-</p>
+<div class="info-container">
+  <h1>Nume:</h1>
+  <h3>{{ assetName }}</h3>
+
+  <h1>Numar identificare:</h1>
+  <h3>{{ serialNumber }}</h3>
+</div>
+<div class="buttons-container">
+  <button (click)="createTicket()" mat-raised-button color="primary">Creeaza tichet</button>
+  <button (click)="requestObject()" mat-raised-button color="primary">Cere obiect</button>
+  <button (click)="saveLink()" mat-raised-button color="primary" (click)="saveLink()">
+    Salveaza Link
+  </button>
+</div>

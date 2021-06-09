@@ -14,8 +14,14 @@ const routes: Routes = [
     redirectTo: 'auth',
   },
   {
-    path: 'qr',
-    loadChildren: () => import('./features/qr/qr.module').then((m) => m.QrModule),
+    path: '',
+    component: LayoutComponent,
+    children: [
+      {
+        path: 'qr',
+        loadChildren: () => import('./features/qr/qr.module').then((m) => m.QrModule),
+      },
+    ],
   },
   {
     path: '',

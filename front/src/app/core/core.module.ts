@@ -5,14 +5,15 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
+import { MatMenuModule } from '@angular/material/menu';
 
 const MATERIAL_MODULES: any[] = [
   MatIconModule,
   MatToolbarModule,
   MatButtonModule,
   MatSidenavModule,
+  MatMenuModule,
 ];
 
 @NgModule({

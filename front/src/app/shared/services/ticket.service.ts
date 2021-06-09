@@ -7,12 +7,12 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class TicketService {
-  private url = environment + '/ticket';
+  private url = environment.API_URL + '/ticket';
 
   constructor(private http: HttpClient) {}
 
   public createTicket(bodyObject: any): Observable<any> {
-    return this.http.post(`${this.url}`, bodyObject);
+    return this.http.post(this.url, bodyObject);
   }
 
   public getAdminTickets(pageSize: any, pageNumber: any, status?: string): Observable<any> {

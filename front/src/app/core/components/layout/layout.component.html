@@ -17,9 +17,11 @@
       </ng-container>
 
       <div class="profile-container">
-        <button mat-icon-button aria-label="Menu icon" (click)="toggle()">
-          <mat-icon>person</mat-icon>
-        </button>
+        <mat-menu #savedLinks="matMenu">
+          <button *ngFor="let link of links" mat-menu-item (click)="redirectToView(link)">
+            {{ link.assetName }}
+          </button>
+        </mat-menu>
         <button mat-icon-button aria-label="Menu icon" (click)="logOut()">
           <mat-icon>exit_to_app</mat-icon>
         </button>

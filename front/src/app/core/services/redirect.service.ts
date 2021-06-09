@@ -38,4 +38,8 @@ export class RedirectService {
   public toAssetQr(id: any): void {
     this.router.navigate(['/qr/' + id]);
   }
+
+  public toAssetQrView(id: any): void {
+    this.router.navigate(['/qr/view/' + id]);
+  }
 }
