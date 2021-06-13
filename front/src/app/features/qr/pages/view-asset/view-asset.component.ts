@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { AssetService } from '@shared/services';
+import { AssetService, AssignService, TicketService } from '@shared/services';
 import { SavedLinkService } from '../../../../shared/services';
 import { CreateTicketComponent, LoginComponent } from '../../dialogs';
 
@@ -17,10 +17,12 @@ export class ViewAssetComponent implements OnInit {
   private assetId: string;
   private username: string;
   constructor(
-    private route: ActivatedRoute,
     private assetService: AssetService,
-    private savedLinkService: SavedLinkService,
+    private assignService: AssignService,
     private matDialog: MatDialog,
+    private route: ActivatedRoute,
+    private savedLinkService: SavedLinkService,
+    private ticketService: TicketService,
   ) {}
 
   public ngOnInit(): void {
@@ -32,16 +34,10 @@ export class ViewAssetComponent implements OnInit {
       this.assetId = params['id'];
       this.getObjectData(this.assetId);
     });
-
-    this.savedLinkService.getLinks().subscribe((res) => {
-      console.log(res);
-    });
   }
 
   public saveLink(): void {
-    this.savedLinkService.saveLink(this.assetId, this.assetName).subscribe((res) => {
-      console.log(res);
-    });
+    this.savedLinkService.saveLink(this.assetId, this.assetName);
   }
 
   public createTicket(): void {
@@ -55,10 +51,12 @@ export class ViewAssetComponent implements OnInit {
       .open(CreateTicketComponent, { height: '400px', width: '300px' })
       .afterClosed()
       .subscribe((ticketText) => {
-        console.log(ticketText);
+        this.ticketService.createTicket({
+          user: this.username,
+          assetId: this.assetId,
+          description: ticketText,
+        });
       });
-
-    // open create ticket
   }
 
   public requestObject(): void {
@@ -67,6 +65,8 @@ export class ViewAssetComponent implements OnInit {
       this.login();
       return;
     }
+
+    this.assetService.createAsset({ user: this.username, assetId: this.assetId });
   }
 
   private getObjectData(assetId: string): void {
