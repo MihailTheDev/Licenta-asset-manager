@@ -166,6 +166,7 @@ export class AssertComponent extends BaseComponent implements OnInit {
   public onSubmit(): void {
     this.assetService.createAsset(this.form.value).subscribe(
       (response) => {
+        this.redirectService.toHome();
         console.log(response);
       },
       (err) => {
