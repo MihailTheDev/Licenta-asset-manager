@@ -8,6 +8,7 @@ interface MenuItem {
   iconLabel: string;
   buttonLabel: string;
   redirectTo: string;
+  ariaLabel: string;
   forAdminOnly?: boolean;
 }
 
@@ -24,6 +25,7 @@ export class LayoutComponent implements OnInit {
       id: '1',
       iconLabel: 'home',
       buttonLabel: 'Acasa',
+      ariaLabel: 'Mergi acasa',
       redirectTo: '/home',
       forAdminOnly: false,
     },
@@ -31,6 +33,7 @@ export class LayoutComponent implements OnInit {
       id: '2',
       iconLabel: 'add',
       buttonLabel: 'Creeaza',
+      ariaLabel: 'Creaza',
       redirectTo: '/create',
       forAdminOnly: true,
     },
@@ -38,6 +41,7 @@ export class LayoutComponent implements OnInit {
       id: '3',
       iconLabel: 'list',
       buttonLabel: 'Lista obiecte',
+      ariaLabel: 'Vezi lista de obiecte',
       redirectTo: '/display',
       forAdminOnly: true,
     },
@@ -45,6 +49,7 @@ export class LayoutComponent implements OnInit {
       id: '4',
       iconLabel: 'assignment_returned',
       buttonLabel: 'Requesturi',
+      ariaLabel: 'Vezi requesturi',
       redirectTo: '/assign',
       forAdminOnly: false,
     },
@@ -53,6 +58,7 @@ export class LayoutComponent implements OnInit {
       iconLabel: 'assignment_late',
       buttonLabel: 'Tichete',
       redirectTo: '/ticket',
+      ariaLabel: 'Vezi tichete',
       forAdminOnly: false,
     },
   ];

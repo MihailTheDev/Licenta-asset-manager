@@ -6,10 +6,16 @@
   *ngIf="stateOfPage === stateOfPageType.VIEW && isAdmin"
   (click)="enableFormEditing()"
   mat-button
+  aria-label="activeaza editarea"
 >
   Activeaza editarea
 </button>
-<button *ngIf="stateOfPage === stateOfPageType.EDIT" (click)="disableFormEditing()" mat-button>
+<button
+  *ngIf="stateOfPage === stateOfPageType.EDIT"
+  (click)="disableFormEditing()"
+  mat-button
+  aria-label="activeaza vizualizarea"
+>
   Activeaza vizualizarea
 </button>
 
@@ -43,8 +49,10 @@
       <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
       <mat-datepicker #datepicker disabled="false">
         <mat-datepicker-actions>
-          <button mat-button matDatepickerCancel>Cancel</button>
-          <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+          <button mat-button matDatepickerCancel aria-label="renunta">Cancel</button>
+          <button mat-raised-button color="primary" matDatepickerApply aria-label="aplica">
+            Apply
+          </button>
         </mat-datepicker-actions>
       </mat-datepicker>
     </mat-form-field>
@@ -108,6 +116,7 @@
       color="primary"
       [disabled]="stateOfPage === stateOfPageType.VIEW"
       (click)="openParentPopUp()"
+      aria-label="deschide panou selectie parinte"
     >
       Alege obiect parinte
     </button>
@@ -117,6 +126,7 @@
       color="primary"
       [disabled]="stateOfPage === stateOfPageType.VIEW"
       (click)="openChildPopUp()"
+      aria-label="deschide panou selectie copil"
     >
       Alege sub-obiecte
     </button>
@@ -149,6 +159,7 @@
   (click)="onSubmit()"
   mat-raised-button
   color="primary"
+  aria-label="salveaza"
 >
   Salveaza
 </button>
@@ -159,6 +170,7 @@
   (click)="onUpdate()"
   mat-raised-button
   color="primary"
+  aria-label="actualizeaza"
 >
   Actualizeaza
 </button>
@@ -166,7 +178,7 @@
 <button
   *ngIf="stateOfPage === stateOfPageType.CREATE"
   (click)="onReset()"
-  s
+  aria-label="reseteaza campurile"
   mat-raised-button
   color="warn"
 >
@@ -179,6 +191,7 @@
   (click)="goToQr()"
   mat-raised-button
   color="primary"
+  aria-label="genereaza QR"
 >
   Genereaza QR
 </button>

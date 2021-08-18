@@ -6,9 +6,19 @@
   <h3>{{ serialNumber }}</h3>
 </div>
 <div class="buttons-container">
-  <button (click)="createTicket()" mat-raised-button color="primary">Creeaza tichet</button>
-  <button (click)="requestObject()" mat-raised-button color="primary">Cere obiect</button>
-  <button (click)="saveLink()" mat-raised-button color="primary" (click)="saveLink()">
+  <button (click)="createTicket()" mat-raised-button color="primary" aria-label="creaza tichet">
+    Creeaza tichet
+  </button>
+  <button (click)="requestObject()" mat-raised-button color="primary" aria-label="cere obiect">
+    Cere obiect
+  </button>
+  <button
+    (click)="saveLink()"
+    mat-raised-button
+    color="primary"
+    (click)="saveLink()"
+    aria-label="salveaza link"
+  >
     Salveaza Link
   </button>
 </div>

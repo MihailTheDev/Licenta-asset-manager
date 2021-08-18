@@ -7,7 +7,7 @@
       <ng-container *ngFor="let item of menuItems">
         <button
           mat-icon-button
-          [attr.aria-label]="item.iconLabel + 'icon'"
+          [attr.aria-label]="item.ariaLabel"
           (click)="onMenuItemClick(item)"
           *ngIf="!(item.forAdminOnly && !isAdmin)"
         >
@@ -18,11 +18,16 @@
 
       <div class="profile-container">
         <mat-menu #savedLinks="matMenu">
-          <button *ngFor="let link of links" mat-menu-item (click)="redirectToView(link)">
+          <button
+            aria-label="Saved links button"
+            *ngFor="let link of links"
+            mat-menu-item
+            (click)="redirectToView(link)"
+          >
             {{ link.assetName }}
           </button>
         </mat-menu>
-        <button mat-icon-button aria-label="Menu icon" (click)="logOut()">
+        <button mat-icon-button aria-label="Delogheaza-te" (click)="logOut()">
           <mat-icon>exit_to_app</mat-icon>
         </button>
       </div>

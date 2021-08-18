@@ -33,8 +33,8 @@
   (paginatorChange)="onPaginatorChange($event)"
 ></app-table>
 <div class="actions-container">
-  <button mat-button color="primary" (click)="submit()">
+  <button aria-label="Salveaza" mat-button color="primary" (click)="submit()">
     Salveaza ({{ selectedItems.length }})
   </button>
-  <button mat-button (click)="cancel()">Renunta</button>
+  <button aria-label="Renunta" mat-button (click)="cancel()">Renunta</button>
 </div>

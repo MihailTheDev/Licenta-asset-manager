@@ -2,9 +2,15 @@
 
 <h3>Linkuri rapide:</h3>
 <div class="fast-links-container">
-  <button mat-raised-button color="primary" (click)="goToAssigns()">Vezi obiecte</button>
-  <button mat-raised-button color="primary" (click)="createTicket()">Creeaza tichet</button>
-  <button mat-raised-button color="primary" (click)="createRequest()">Cere obiect</button>
+  <button mat-raised-button color="primary" (click)="goToAssigns()" aria-label="vezi obiecte">
+    Vezi obiecte
+  </button>
+  <button mat-raised-button color="primary" (click)="createTicket()" aria-label="creaza tichet">
+    Creeaza tichet
+  </button>
+  <button mat-raised-button color="primary" (click)="createRequest()" aria-label="cere obiect">
+    Cere obiect
+  </button>
 </div>
 
 <h3>Overview:</h3>
@@ -15,18 +21,12 @@
     </mat-card-header>
 
     <mat-card-content>
-      <p>
-        Tichete rezolvate: <strong> {{ (tickets$ | async)?.closed }}</strong>
-      </p>
-      <p>
-        Tichete deschise: <strong> {{ (tickets$ | async)?.opened }}</strong>
-      </p>
-      <p>
-        Numar total: <strong> {{ (tickets$ | async)?.total }}</strong>
-      </p>
+      <p>Tichete rezolvate: <strong> 4</strong></p>
+      <p>Tichete deschise: <strong> 2</strong></p>
+      <p>Numar total: <strong> 6</strong></p>
     </mat-card-content>
     <mat-card-actions>
-      <button (click)="goToTickets()" mat-button>Vezi tichete</button>
+      <button (click)="goToTickets()" mat-button aria-label="vezi tichete">Vezi tichete</button>
     </mat-card-actions>
   </mat-card>
 
@@ -46,7 +46,7 @@
       </p>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-button (click)="goToAssigns()">Vezi obiecte</button>
+      <button mat-button (click)="goToAssigns()" aria-label="vezi asignari">Vezi obiecte</button>
     </mat-card-actions>
   </mat-card>
 
@@ -66,7 +66,7 @@
       </p>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-button (click)="goToAssigns()">Vezi cereri</button>
+      <button mat-button (click)="goToAssigns()" aria-label="vezi cereri">Vezi cereri</button>
     </mat-card-actions>
   </mat-card>
 </div>

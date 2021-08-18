@@ -102,7 +102,12 @@
     <ng-container matColumnDef="goToDetailsButton" stickyEnd>
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let element">
-        <button mat-mini-fab aria-label="goToDetailsButton" (click)="goToDetails(element)">
+        <button
+          mat-mini-fab
+          aria-label="goToDetailsButton"
+          (click)="goToDetails(element)"
+          aria-label="mergi la detalii"
+        >
           <mat-icon>keyboard_arrow_right</mat-icon>
         </button>
       </td>
@@ -113,7 +118,13 @@
     <ng-container matColumnDef="deleteButton" stickyEnd>
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let element">
-        <button mat-mini-fab aria-label="delete" color="warn" (click)="goToDetails(element)">
+        <button
+          mat-mini-fab
+          aria-label="delete"
+          color="warn"
+          (click)="goToDetails(element)"
+          aria-label="delete"
+        >
           <mat-icon>delete</mat-icon>
         </button>
       </td>

@@ -13,7 +13,15 @@
       (selectedItem)="onSelectItem($event)"
       (paginatorChange)="onPaginatorChange($event)"
     ></app-table>
-    <button mat-button matStepperNext color="primary" [disabled]="!selectedItem">Selecteaza</button>
+    <button
+      mat-button
+      matStepperNext
+      color="primary"
+      [disabled]="!selectedItem"
+      aria-label="selecteaza"
+    >
+      Selecteaza
+    </button>
   </mat-step>
   <mat-step errorMessage="Address is required.">
     <ng-template matStepLabel> Verifica alegerea </ng-template>
@@ -46,16 +54,22 @@
         <h3>Observation: {{ selectedItem?.observation }}</h3>
       </mat-list-item>
 
-      <button mat-button matStepperPrevious color="primary">Alege alt obiect</button>
-      <button mat-button color="primary" (click)="create(stepper)">Creaza cerere</button>
+      <button mat-button matStepperPrevious color="primary" aria-label="alege alt obiect">
+        Alege alt obiect
+      </button>
+      <button mat-button color="primary" (click)="create(stepper)" aria-label="creaza cerere">
+        Creaza cerere
+      </button>
     </mat-list>
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Ai terminat</ng-template>
     <p>Requestul a fost creat cu succes.</p>
     <div>
-      <button mat-button (click)="stepper.reset()">Creaza inca o cerere</button>
-      <button mat-button (click)="close()">Inchide</button>
+      <button mat-button (click)="stepper.reset()" aria-label="creaza inca o cerere">
+        Creaza inca o cerere
+      </button>
+      <button mat-button (click)="close()" aria-label="inchide">Inchide</button>
     </div>
   </mat-step>
 </mat-horizontal-stepper>
